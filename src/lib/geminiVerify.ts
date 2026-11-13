@@ -13,6 +13,45 @@ const VALID_TYPES: VerbType[] = [
 
 const VALID_TRANS: Transitivity[] = ['transitive', 'intransitive', 'both'];
 
+
+// Models tried in order when the chosen one is overloaded (503) or rate-limited (429).
+const FALLBACK_MODELS = ['gemini-flash-latest', 'gemini-flash-lite-latest'];
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+function isBusyError(err: unknown): boolean {
+  const msg = String((err as any)?.message ?? err ?? '').toLowerCase();
+  return (
+    msg.includes('503') ||
+    msg.includes('429') ||
+    msg.includes('unavailable') ||
+    msg.includes('high demand') ||
+    msg.includes('overloaded') ||
+    msg.includes('resource_exhausted')
+  );
+}
+
+async function generateWithFallback(ai: GoogleGenAI, primary: string, params: any) {
+  const models = [primary, ...FALLBACK_MODELS.filter((m) => m !== primary)];
+  let lastErr: unknown;
+  for (const model of models) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        return await ai.models.generateContent({ model, ...params });
+      } catch (err) {
+        lastErr = err;
+        if (!isBusyError(err)) throw err; // bad key, bad request, etc.
+        await sleep(1500 * (attempt + 1));
+      }
+    }
+  }
+  throw new Error(
+    'Gemini is busy right now. Please try again in a minute. (' +
+      String((lastErr as any)?.message ?? lastErr).slice(0, 120) +
+      ')'
+  );
+}
+
 export async function verifyVerbWithGemini(
   query: string,
   apiKey: string,
@@ -36,8 +75,7 @@ Rules:
 - transitivity must be one of: transitive, intransitive, both.
 - Include 2-4 concise English meanings, 1-2 vocalized Arabic example sentences with English translations, and 1-3 tags.`;
 
-  const response = await ai.models.generateContent({
-    model: modelName || 'gemini-4-hydrogen',
+  const response = await generateWithFallback(ai, modelName || 'gemini-4-hydrogen', {
     contents: prompt,
     config: {
       responseMimeType: 'application/json',
