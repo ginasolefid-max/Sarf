@@ -22,7 +22,7 @@ jobs:
 
       - name: Install and build web app
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Add and sync Android
