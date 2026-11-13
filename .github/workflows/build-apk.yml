@@ -22,13 +22,18 @@ jobs:
 
       - name: Install and build web app
         run: |
-          npm install --legacy-peer-deps
+          npm install
           npm run build
 
       - name: Add and sync Android
         run: |
           npx cap add android
           npx cap sync android
+
+      - name: Use fixed signing key
+        run: |
+          mkdir -p ~/.android
+          cp debug.keystore ~/.android/debug.keystore
 
       - name: Build debug APK
         run: |

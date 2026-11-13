@@ -14021,5 +14021,273 @@
       "literature"
     ],
     "source": "seed"
+  },
+  {
+    "id": "seed-0447",
+    "root": "ص-ح-ح",
+    "madhi": "صَحَّحَ",
+    "mudhari": "يُصَحِّحُ",
+    "masdar": "تَصْحِيحٌ",
+    "ismFail": "مُصَحِّحٌ",
+    "ismMaful": "مُصَحَّحٌ",
+    "amr": "صَحِّحْ",
+    "nahy": "لَا تُصَحِّحْ",
+    "form": "II",
+    "letters": 3,
+    "bab": "فَعَّلَ يُفَعِّلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to correct",
+      "to mark (exams)"
+    ],
+    "examples": [
+      {
+        "ar": "صَحَّحَ الْمُعَلِّمُ الْوَاجِبَ.",
+        "en": "The teacher corrected the homework."
+      }
+    ],
+    "tags": [
+      "education"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0448",
+    "root": "ر-ج-ع",
+    "madhi": "رَاجَعَ",
+    "mudhari": "يُرَاجِعُ",
+    "masdar": "مُرَاجَعَةٌ",
+    "ismFail": "مُرَاجِعٌ",
+    "ismMaful": "مُرَاجَعٌ",
+    "amr": "رَاجِعْ",
+    "nahy": "لَا تُرَاجِعْ",
+    "form": "III",
+    "letters": 3,
+    "bab": "فَاعَلَ يُفَاعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to review",
+      "to revise"
+    ],
+    "examples": [
+      {
+        "ar": "رَاجَعَ الطَّالِبُ دُرُوسَهُ.",
+        "en": "The student reviewed his lessons."
+      }
+    ],
+    "tags": [
+      "education"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0449",
+    "root": "ح-س-ب",
+    "madhi": "حَاسَبَ",
+    "mudhari": "يُحَاسِبُ",
+    "masdar": "مُحَاسَبَةٌ",
+    "ismFail": "مُحَاسِبٌ",
+    "ismMaful": "مُحَاسَبٌ",
+    "amr": "حَاسِبْ",
+    "nahy": "لَا تُحَاسِبْ",
+    "form": "III",
+    "letters": 3,
+    "bab": "فَاعَلَ يُفَاعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to hold accountable",
+      "to settle accounts"
+    ],
+    "examples": [
+      {
+        "ar": "حَاسَبَ نَفْسَهُ عَلَى أَخْطَائِهِ.",
+        "en": "He held himself accountable for his mistakes."
+      }
+    ],
+    "tags": [
+      "ethics"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0450",
+    "root": "ن-ت-ج",
+    "madhi": "أَنْتَجَ",
+    "mudhari": "يُنْتِجُ",
+    "masdar": "إِنْتَاجٌ",
+    "ismFail": "مُنْتِجٌ",
+    "ismMaful": "مُنْتَجٌ",
+    "amr": "أَنْتِجْ",
+    "nahy": "لَا تُنْتِجْ",
+    "form": "IV",
+    "letters": 3,
+    "bab": "أَفْعَلَ يُفْعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to produce"
+    ],
+    "examples": [
+      {
+        "ar": "تُنْتِجُ الْمَصَانِعُ السَّيَّارَاتِ.",
+        "en": "Factories produce cars."
+      }
+    ],
+    "tags": [
+      "industry"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0451",
+    "root": "ظ-ه-ر",
+    "madhi": "أَظْهَرَ",
+    "mudhari": "يُظْهِرُ",
+    "masdar": "إِظْهَارٌ",
+    "ismFail": "مُظْهِرٌ",
+    "ismMaful": "مُظْهَرٌ",
+    "amr": "أَظْهِرْ",
+    "nahy": "لَا تُظْهِرْ",
+    "form": "IV",
+    "letters": 3,
+    "bab": "أَفْعَلَ يُفْعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to show",
+      "to reveal"
+    ],
+    "examples": [
+      {
+        "ar": "أَظْهَرَ الْفَحْصُ النَّتِيجَةَ.",
+        "en": "The test showed the result."
+      }
+    ],
+    "tags": [
+      "everyday"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0452",
+    "root": "ع-ل-ن",
+    "madhi": "أَعْلَنَ",
+    "mudhari": "يُعْلِنُ",
+    "masdar": "إِعْلَانٌ",
+    "ismFail": "مُعْلِنٌ",
+    "ismMaful": "مُعْلَنٌ",
+    "amr": "أَعْلِنْ",
+    "nahy": "لَا تُعْلِنْ",
+    "form": "IV",
+    "letters": 3,
+    "bab": "أَفْعَلَ يُفْعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to announce",
+      "to declare"
+    ],
+    "examples": [
+      {
+        "ar": "أَعْلَنَتِ الْمَدْرَسَةُ النَّتَائِجَ.",
+        "en": "The school announced the results."
+      }
+    ],
+    "tags": [
+      "communication"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0453",
+    "root": "ط-و-ر",
+    "madhi": "تَطَوَّرَ",
+    "mudhari": "يَتَطَوَّرُ",
+    "masdar": "تَطَوُّرٌ",
+    "ismFail": "مُتَطَوِّرٌ",
+    "ismMaful": "",
+    "amr": "تَطَوَّرْ",
+    "nahy": "لَا تَتَطَوَّرْ",
+    "form": "V",
+    "letters": 3,
+    "bab": "تَفَعَّلَ يَتَفَعَّلُ",
+    "verbType": "sound",
+    "transitivity": "intransitive",
+    "meanings": [
+      "to develop",
+      "to evolve"
+    ],
+    "examples": [
+      {
+        "ar": "تَتَطَوَّرُ التِّقْنِيَةُ بِسُرْعَةٍ.",
+        "en": "Technology develops quickly."
+      }
+    ],
+    "tags": [
+      "tech"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0454",
+    "root": "ف-ص-ل",
+    "madhi": "اِنْفَصَلَ",
+    "mudhari": "يَنْفَصِلُ",
+    "masdar": "اِنْفِصَالٌ",
+    "ismFail": "مُنْفَصِلٌ",
+    "ismMaful": "",
+    "amr": "اِنْفَصِلْ",
+    "nahy": "لَا تَنْفَصِلْ",
+    "form": "VII",
+    "letters": 3,
+    "bab": "اِنْفَعَلَ يَنْفَعِلُ",
+    "verbType": "sound",
+    "transitivity": "intransitive",
+    "meanings": [
+      "to be separated",
+      "to split"
+    ],
+    "examples": [
+      {
+        "ar": "اِنْفَصَلَ الْجُزْءُ عَنِ الْكُلِّ.",
+        "en": "The part separated from the whole."
+      }
+    ],
+    "tags": [
+      "everyday"
+    ],
+    "source": "seed"
+  },
+  {
+    "id": "seed-0455",
+    "root": "ك-ش-ف",
+    "madhi": "اِكْتَشَفَ",
+    "mudhari": "يَكْتَشِفُ",
+    "masdar": "اِكْتِشَافٌ",
+    "ismFail": "مُكْتَشِفٌ",
+    "ismMaful": "مُكْتَشَفٌ",
+    "amr": "اِكْتَشِفْ",
+    "nahy": "لَا تَكْتَشِفْ",
+    "form": "VIII",
+    "letters": 3,
+    "bab": "اِفْتَعَلَ يَفْتَعِلُ",
+    "verbType": "sound",
+    "transitivity": "transitive",
+    "meanings": [
+      "to discover"
+    ],
+    "examples": [
+      {
+        "ar": "اِكْتَشَفَ الْعَالِمُ دَوَاءً جَدِيدًا.",
+        "en": "The scientist discovered a new medicine."
+      }
+    ],
+    "tags": [
+      "science"
+    ],
+    "source": "seed"
   }
 ]

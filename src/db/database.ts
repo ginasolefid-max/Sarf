@@ -58,7 +58,7 @@ export function toStoredVerb(verb: VerbEntry): StoredVerb {
 }
 
 const SEED_VERSION_KEY = 'sarf_seed_version_v1';
-const CURRENT_SEED_VERSION = '1.0.0';
+const CURRENT_SEED_VERSION = '1.1.0';
 
 export async function seedDatabaseIfNeeded(): Promise<{ seeded: boolean; count: number }> {
   const existingCount = await db.verbs.count();

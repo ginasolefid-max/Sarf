@@ -400,7 +400,7 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
               Arabic Morphology (عِلْمُ الصَّرْفِ)
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-              Fourteen structured chapters from alphabet &amp; harakat to weak-verb I&apos;lal, broken plurals, and passive voice.
+              Eighteen structured chapters from alphabet &amp; harakat to weak-verb I&apos;lal, broken plurals, and passive voice.
             </p>
           </div>
 
