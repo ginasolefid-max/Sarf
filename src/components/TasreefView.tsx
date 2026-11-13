@@ -33,7 +33,6 @@ export const TasreefView: React.FC<TasreefViewProps> = ({
   onSpeakError,
 }) => {
   const [highlightRoot, setHighlightRoot] = useState(true);
-  const [activeMoodTab, setActiveMoodTab] = useState<'all' | 'madhi' | 'mudhari' | 'mansub' | 'majzum'>('all');
   const [noteText, setNoteText] = useState('');
   const [noteSavedMsg, setNoteSavedMsg] = useState('');
   const [exportingPdf, setExportingPdf] = useState(false);
@@ -118,6 +117,38 @@ export const TasreefView: React.FC<TasreefViewProps> = ({
           className="font-semibold text-slate-900 dark:text-slate-100"
         />
       </div>
+    </div>
+  );
+
+  const renderTenseBox = (
+    title: string,
+    arTitle: string,
+    words: Record<string, string>,
+    rows: { key: string; ar: string; label: string }[]
+  ) => (
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-emerald-800 text-white">
+        <span className="text-sm font-semibold">{title}</span>
+        <span className="arabic-text text-lg font-bold">{arTitle}</span>
+      </div>
+      <ol>
+        {rows.map((p, i) => (
+          <li
+            key={p.key}
+            className="flex items-center gap-3 px-4 py-2 border-b last:border-b-0 border-slate-100 dark:border-slate-800"
+          >
+            <span className="w-6 h-6 shrink-0 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs font-mono-num flex items-center justify-center">
+              {i + 1}
+            </span>
+            <span className="w-24 shrink-0 text-xs text-slate-500 dark:text-slate-400">
+              {p.label} <span className="arabic-text text-sm">{p.ar}</span>
+            </span>
+            <div className="ml-auto">
+              {renderCell(words[p.key] || '—')}
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 
@@ -337,127 +368,18 @@ export const TasreefView: React.FC<TasreefViewProps> = ({
         </div>
       </div>
 
-      {/* 14-Pronoun Conjugation Table */}
-      <div className="space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-            14-Pronoun Conjugation Table (التصريف الكامل)
-          </h2>
-
-          {/* Mobile tense selector */}
-          <div className="flex lg:hidden items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 overflow-x-auto">
-            {(
-              [
-                ['all', 'Madhi + Mudhari'],
-                ['madhi', 'Madhi'],
-                ['mudhari', 'Mudhari'],
-                ['mansub', 'Mansub'],
-                ['majzum', 'Majzum'],
-              ] as const
-            ).map(([id, label]) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setActiveMoodTab(id)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap ${
-                  activeMoodTab === id
-                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop full 4-column table */}
-        <div className="hidden lg:block overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                <th className="py-3 px-4">Pronoun (الضمير)</th>
-                <th className="py-3 px-4 text-right">Past · الماضي</th>
-                <th className="py-3 px-4 text-right">Present · المضارع</th>
-                <th className="py-3 px-4 text-right">Subjunctive · المنصوب</th>
-                <th className="py-3 px-4 text-right">Jussive · المجزوم</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {PRONOUNS.map((p) => (
-                <tr key={p.key} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40">
-                  <td className="py-2.5 px-4 whitespace-nowrap">
-                    <div className="flex items-center gap-2.5">
-                      <span className="arabic-text text-lg font-bold text-slate-900 dark:text-slate-100 w-12">
-                        {p.ar}
-                      </span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">
-                        {p.label}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="py-2.5 px-4">{renderCell(table.madhi[p.key])}</td>
-                  <td className="py-2.5 px-4">{renderCell(table.mudhari[p.key])}</td>
-                  <td className="py-2.5 px-4">{renderCell(table.mansub[p.key])}</td>
-                  <td className="py-2.5 px-4">{renderCell(table.majzum[p.key])}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile stacked cards */}
-        <div className="lg:hidden space-y-2.5">
-          {PRONOUNS.map((p) => (
-            <div
-              key={p.key}
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 space-y-2"
-            >
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-1.5">
-                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                  {p.label} ({p.translit})
-                </span>
-                <span className="arabic-text text-lg font-bold text-emerald-700 dark:text-emerald-400">
-                  {p.ar}
-                </span>
-              </div>
-              {(activeMoodTab === 'all' || activeMoodTab === 'madhi') &&
-                renderCell(table.madhi[p.key], 'Past (الماضي)')}
-              {(activeMoodTab === 'all' || activeMoodTab === 'mudhari') &&
-                renderCell(table.mudhari[p.key], 'Present (المضارع)')}
-              {activeMoodTab === 'mansub' &&
-                renderCell(table.mansub[p.key], 'Subjunctive (المنصوب)')}
-              {activeMoodTab === 'majzum' &&
-                renderCell(table.majzum[p.key], 'Jussive (المجزوم)')}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Imperative & Prohibitive (Amr & Nahy) */}
-      <div className="space-y-3">
+      {/* Conjugation boxes: one numbered box per tense */}
+      <div className="space-y-4">
         <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-          Imperative &amp; Prohibitive (الأمر والنهي)
+          Full Conjugation (التصريف الكامل)
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {AMR_PRONOUN_KEYS.map((pk) => {
-            const meta = PRONOUNS.find((p) => p.key === pk)!;
-            return (
-              <div
-                key={pk}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 space-y-2"
-              >
-                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-1.5">
-                  <span>{meta.label}</span>
-                  <span className="arabic-text text-base font-bold text-slate-800 dark:text-slate-200">
-                    {meta.ar}
-                  </span>
-                </div>
-                {renderCell(table.amr[pk], 'Command (الأمر)')}
-                {renderCell(table.nahy[pk], 'Prohibition (النهي)')}
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {renderTenseBox('Past', 'الماضي', table.madhi, PRONOUNS)}
+          {renderTenseBox('Present', 'المضارع', table.mudhari, PRONOUNS)}
+          {renderTenseBox('Subjunctive', 'المنصوب', table.mansub, PRONOUNS)}
+          {renderTenseBox('Jussive', 'المجزوم', table.majzum, PRONOUNS)}
+          {renderTenseBox('Command', 'الأمر', table.amr, PRONOUNS.filter((p) => AMR_PRONOUN_KEYS.includes(p.key as never)))}
+          {renderTenseBox('Prohibition', 'النهي', table.nahy, PRONOUNS.filter((p) => AMR_PRONOUN_KEYS.includes(p.key as never)))}
         </div>
       </div>
 

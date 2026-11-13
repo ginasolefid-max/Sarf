@@ -69,7 +69,16 @@ export const DictionaryView: React.FC<DictionaryViewProps> = ({
     return verbs[dayOfYear % verbs.length];
   }, [verbs]);
 
+  const hasSearch =
+    query.trim() !== '' ||
+    !!explorerRoot ||
+    formFilter !== 'ALL' ||
+    typeFilter !== 'all' ||
+    tagFilter !== 'all' ||
+    favoritesOnly;
+
   const filteredVerbs = useMemo(() => {
+    if (!hasSearch) return [];
     let list: StoredVerb[] = verbs;
 
     if (explorerRoot) {
@@ -333,7 +342,7 @@ export const DictionaryView: React.FC<DictionaryViewProps> = ({
       )}
 
       {/* Word of the Day + Recent History when search is empty */}
-      {!query && !explorerRoot && formFilter === 'ALL' && typeFilter === 'all' && !favoritesOnly && wordOfDay && (
+      {false && !query && !explorerRoot && formFilter === 'ALL' && typeFilter === 'all' && !favoritesOnly && wordOfDay && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="lg:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 flex flex-col justify-between gap-4">
             <div className="flex items-start justify-between gap-4">
@@ -443,15 +452,26 @@ export const DictionaryView: React.FC<DictionaryViewProps> = ({
       )}
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      {hasSearch && (<div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         <span className="font-mono-num">
           Showing {filteredVerbs.length} of {verbs.length} verbs in IndexedDB
         </span>
         <span>Tap a root to explore related words</span>
-      </div>
+      </div>)}
 
       {/* Verb Cards Grid */}
-      {filteredVerbs.length === 0 ? (
+      {!hasSearch ? (
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 text-center space-y-3">
+          <Search className="w-8 h-8 text-slate-400 mx-auto" />
+          <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+            Search to begin
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Type an Arabic verb, a root such as ك-ت-ب, or an English meaning.
+            {' '}{verbs.length} verbs are stored offline.
+          </p>
+        </div>
+      ) : filteredVerbs.length === 0 ? (
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-3">
           <Bookmark className="w-8 h-8 text-slate-400 mx-auto" />
           <p className="text-sm font-medium text-slate-800 dark:text-slate-200">

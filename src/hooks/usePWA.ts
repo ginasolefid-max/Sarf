@@ -61,6 +61,32 @@ export function usePWA() {
       setOfflineReady(true);
     }
 
+    // Inside the native Android app, never use the service worker: it keeps serving old cached screens.
+    const cap = (window as unknown as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor;
+    if (cap?.isNativePlatform?.()) {
+      setOfflineReady(true);
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((regs) => {
+          regs.forEach((r) => r.unregister());
+          if (regs.length > 0 && 'caches' in window) {
+            caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+            try {
+              if (!sessionStorage.getItem('sarf_sw_purged')) {
+                sessionStorage.setItem('sarf_sw_purged', '1');
+                window.location.reload();
+              }
+            } catch {
+              // ignore storage errors
+            }
+          }
+        });
+      }
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
+
     const updateSW = registerSW({
       immediate: true,
       onOfflineReady() {

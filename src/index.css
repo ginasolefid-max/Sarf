@@ -1,6 +1,32 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-emerald-50: #eef3fa;
+  --color-emerald-100: #dbe5f3;
+  --color-emerald-200: #b9cde7;
+  --color-emerald-300: #8eaad4;
+  --color-emerald-400: #6b8fc4;
+  --color-emerald-500: #4a72ae;
+  --color-emerald-600: #365c97;
+  --color-emerald-700: #2a4a7d;
+  --color-emerald-800: #223c65;
+  --color-emerald-900: #1b3050;
+  --color-emerald-950: #111d33;
+  --color-amber-50: #fbf7ec;
+  --color-amber-100: #f5ecd0;
+  --color-amber-200: #ead9a0;
+  --color-amber-300: #dcc271;
+  --color-amber-400: #c9a74a;
+  --color-amber-500: #b08d33;
+  --color-amber-600: #8f7027;
+  --color-amber-700: #735a21;
+  --color-amber-800: #5d481e;
+  --color-amber-900: #4b3b1b;
+  --color-amber-950: #2b2110;
+}
+
+
 @import "@fontsource/plus-jakarta-sans/400.css";
 @import "@fontsource/plus-jakarta-sans/500.css";
 @import "@fontsource/plus-jakarta-sans/600.css";
