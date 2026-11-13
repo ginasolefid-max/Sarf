@@ -1,0 +1,6 @@
+{
+  "name": "Sarf Companion",
+  "description": "Offline-first Arabic verb dictionary, full 14-pronoun Tasreef conjugation engine, and interactive Sarf morphology textbook.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/700.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/amiri/400.css";
+@import "@fontsource/amiri/700.css";
+@import "@fontsource/noto-naskh-arabic/400.css";
+@import "@fontsource/noto-naskh-arabic/600.css";
+@import "@fontsource/noto-naskh-arabic/700.css";
+@import "@fontsource/scheherazade-new/400.css";
+@import "@fontsource/scheherazade-new/700.css";
+
+:root {
+  --ar-font-family: "Amiri", "Noto Naskh Arabic", serif;
+  --ar-font-size: 26px;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.font-mono-num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.arabic-text {
+  font-family: var(--ar-font-family);
+  line-height: 2.05;
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+}
+
+.arabic-scalable {
+  font-family: var(--ar-font-family);
+  font-size: var(--ar-font-size);
+  line-height: 2.05;
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+}
+
+/* Safe area padding for mobile PWA standalone mode */
+.pb-safe {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
