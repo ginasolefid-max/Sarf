@@ -22,6 +22,7 @@ interface BookViewProps {
 export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filterMode, setFilterMode] = useState<'all' | 'bookmarked' | 'unread'>('all');
+  const [subjectMode, setSubjectMode] = useState<'all' | 'sarf' | 'nahw'>('all');
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
   const [revealedAnswers, setRevealedAnswers] = useState<Record<string, boolean>>({});
 
@@ -89,11 +90,12 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
   const filteredChapters = useMemo(() => {
     return BOOK_CHAPTERS.filter((ch) => {
       const p = progressMap.get(ch.id);
+      if (subjectMode !== 'all' && (ch.subject ?? 'sarf') !== subjectMode) return false;
       if (filterMode === 'bookmarked') return Boolean(p?.bookmarked);
       if (filterMode === 'unread') return !p?.read;
       return true;
     });
-  }, [filterMode, progressMap]);
+  }, [filterMode, subjectMode, progressMap]);
 
   if (activeChapter) {
     const chapterIndex = BOOK_CHAPTERS.findIndex((c) => c.id === activeChapter.id);
@@ -394,13 +396,13 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-xs font-medium text-emerald-700 dark:text-emerald-400">
               <BookOpen className="w-4 h-4" />
-              <span>Interactive Sarf Textbook · Offline Ready</span>
+              <span>Interactive Sarf &amp; Nahw Textbook · Offline Ready</span>
             </div>
             <h1 className="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-slate-100">
-              Arabic Morphology (عِلْمُ الصَّرْفِ)
+              Arabic Sarf &amp; Nahw (الصَّرْفُ وَالنَّحْوُ)
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-              Twenty-four structured chapters from alphabet &amp; harakat to weak-verb I&apos;lal, broken plurals, and passive voice.
+              Forty-one structured chapters: Sarf from alphabet and harakat to the ten verb forms, plus a complete Nahw course from I&apos;rab to parsing practice.
             </p>
           </div>
 
@@ -419,6 +421,30 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
             className="h-full bg-emerald-700 dark:bg-emerald-500 transition-all duration-300"
             style={{ width: `${progressPct}%` }}
           />
+        </div>
+
+        {/* Subject switch */}
+        <div className="flex items-center gap-1 p-1 rounded-xl bg-emerald-50 dark:bg-slate-800 w-fit">
+          {(
+            [
+              ['all', 'Sarf + Nahw'],
+              ['sarf', 'Sarf (الصرف)'],
+              ['nahw', 'Nahw (النحو)'],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setSubjectMode(id)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                subjectMode === id
+                  ? 'bg-emerald-700 text-white shadow-sm'
+                  : 'text-emerald-800 dark:text-slate-300'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
         {/* TOC filter tabs */}

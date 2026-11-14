@@ -34,6 +34,7 @@ export interface BookChapter {
   readingMinutes: number;
   sections: BookSection[];
   quiz: BookQuizQuestion[];
+  subject?: 'sarf' | 'nahw';
 }
 
 export const BOOK_CHAPTERS_PART_1: BookChapter[] = [
