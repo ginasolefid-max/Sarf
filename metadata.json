@@ -1,6 +1,6 @@
 {
-  "name": "Sarf Companion",
-  "description": "Offline-first Arabic verb dictionary, full 14-pronoun Tasreef conjugation engine, and interactive Sarf morphology textbook.",
+  "name": "Sarf Companion V6",
+  "description": "Complete Arabic Morphology (Sarf) and Syntax (Nahu) learning platform with interactive Tasreef engine, rule-based I'rab analyzer, trilingual textbook, dictionaries, examinations, and offline spaced repetition.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

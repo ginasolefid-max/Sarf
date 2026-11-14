@@ -1,399 +1,551 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
+import { useEffect, useState } from 'react';
 import {
-  AlertCircle,
-  BookA,
+  BarChart3,
+  Bookmark,
+  BookMarked,
   BookOpen,
-  CheckCircle2,
+  ClipboardCheck,
   GraduationCap,
-  Loader2,
+  Home,
+  Languages,
+  Layers,
+  Library,
+  Menu,
   Moon,
-  Plus,
   RefreshCw,
-  Settings as SettingsIcon,
+  ScrollText,
+  Settings,
   Sun,
-  TableProperties,
-  VolumeX,
+  Target,
   X,
 } from 'lucide-react';
-import { BookView } from './components/BookView';
-import { DictionaryView } from './components/DictionaryView';
-import { PracticeView } from './components/PracticeView';
-import { PWAInstallButton, StatusIndicators } from './components/PWAInstallButton';
-import { SettingsView } from './components/SettingsView';
-import { TasreefView } from './components/TasreefView';
-import { VerifyVerbModal } from './components/VerifyVerbModal';
-import { db, seedDatabaseIfNeeded } from './db/database';
-import { useOnlineStatus, usePWA } from './hooks/usePWA';
-import { useSettings } from './hooks/useSettings';
-import { verifyVerbWithGemini } from './lib/geminiVerify';
-import { getArabicVoices } from './lib/tts';
-import type { VerbEntry } from './types/sarf';
+import {
+  AppSettings,
+  ExamAttempt,
+  NahuTermEntry,
+  QuizQuestion,
+  TextbookChapter,
+  UserProgress,
+  VocabEntry,
+} from './types/arabic';
+import { NavSection, t } from './i18n/translations';
+import {
+  appendActivity,
+  getDefaultProgress,
+  importProgressJSON,
+  loadProgressFromIDB,
+  loadProgressSync,
+  recordExamResult,
+  recordQuestionOutcome,
+  saveProgress,
+  scheduleSRSCard,
+  toggleBookmarkItem,
+  updateStudyStreak,
+} from './db/storage';
+import { SARF_CHAPTERS } from './data/sarfChapters';
+import { NAHU_CHAPTERS } from './data/nahuChapters';
+import { ConnectivityCaption, OfflineIndicator, PWAInstallButton } from './components/PWAComponents';
+import { DashboardView } from './components/DashboardView';
+import { TextbookView } from './components/TextbookView';
+import { TasreefEngineView } from './components/TasreefEngineView';
+import { IrabAnalyzerView } from './components/IrabAnalyzerView';
+import {
+  NahuDictionaryView,
+  SarfDictionaryView,
+  VocabDictionaryView,
+} from './components/DictionariesView';
+import { PracticeCenterView } from './components/PracticeCenterView';
+import { ExaminationsView } from './components/ExaminationsView';
+import { ReviewSRSView } from './components/ReviewSRSView';
+import {
+  BookmarksView,
+  ProgressView,
+  SettingsView,
+} from './components/BookmarksProgressSettings';
 
-type TabId = 'dictionary' | 'tasreef' | 'book' | 'practice' | 'settings';
-
-const NAV_ITEMS: Array<{ id: TabId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }> = [
-  { id: 'dictionary', label: 'Dictionary', shortLabel: 'Dict', icon: BookA },
-  { id: 'tasreef', label: 'Tasreef Engine', shortLabel: 'Tasreef', icon: TableProperties },
-  { id: 'book', label: 'Sarf Book', shortLabel: 'Book', icon: BookOpen },
-  { id: 'practice', label: 'Practice & SRS', shortLabel: 'Practice', icon: GraduationCap },
-  { id: 'settings', label: 'Settings', shortLabel: 'Settings', icon: SettingsIcon },
+const NAV_ITEMS: { id: NavSection; icon: typeof Home }[] = [
+  { id: 'dashboard', icon: Home },
+  { id: 'sarf_textbook', icon: BookOpen },
+  { id: 'nahu_textbook', icon: BookMarked },
+  { id: 'tasreef', icon: Layers },
+  { id: 'irab', icon: ScrollText },
+  { id: 'sarf_dict', icon: Library },
+  { id: 'nahu_dict', icon: GraduationCap },
+  { id: 'vocab_dict', icon: Languages },
+  { id: 'practice', icon: Target },
+  { id: 'exams', icon: ClipboardCheck },
+  { id: 'review', icon: RefreshCw },
+  { id: 'bookmarks', icon: Bookmark },
+  { id: 'progress', icon: BarChart3 },
+  { id: 'settings', icon: Settings },
 ];
 
 export default function App() {
-  const { settings, updateSettings } = useSettings();
-  const isOnline = useOnlineStatus();
-  const pwa = usePWA();
+  const [progress, setProgress] = useState<UserProgress>(() => loadProgressSync());
+  const [activeNav, setActiveNav] = useState<NavSection>('dashboard');
+  const [selectedSarfChapter, setSelectedSarfChapter] = useState<string>(SARF_CHAPTERS[0].id);
+  const [selectedNahuChapter, setSelectedNahuChapter] = useState<string>(NAHU_CHAPTERS[0].id);
+  const [tasreefVerbId, setTasreefVerbId] = useState<string | undefined>(undefined);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<TabId>('dictionary');
-  const [selectedVerb, setSelectedVerb] = useState<VerbEntry | null>(null);
-  const [verifyOpen, setVerifyOpen] = useState(false);
-
-  const [dbState, setDbState] = useState<'loading' | 'ready' | 'error'>('loading');
-  const [dbError, setDbError] = useState('');
-  const [speechNotice, setSpeechNotice] = useState<string | null>(null);
-
-  const processingQueueRef = useRef(false);
-
-  const verbCount = useLiveQuery(() => db.verbs.count(), []) ?? 0;
-  const queueItems = useLiveQuery(() => db.verifyQueue.toArray(), []) || [];
-  const readyQueueCount = queueItems.filter((q) => q.status === 'ready').length;
-
-  const initDb = useCallback(async () => {
-    setDbState('loading');
-    setDbError('');
-    try {
-      await seedDatabaseIfNeeded();
-      setDbState('ready');
-    } catch (err) {
-      setDbError(err instanceof Error ? err.message : 'Unable to initialize offline database.');
-      setDbState('error');
-    }
+  // Hydrate from IndexedDB if newer/available
+  useEffect(() => {
+    let active = true;
+    loadProgressFromIDB().then((idbState) => {
+      if (active && idbState) {
+        setProgress(idbState);
+      }
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
+  // Sync theme class on document root & persist state
   useEffect(() => {
-    initDb();
-  }, [initDb]);
+    const root = document.documentElement;
+    if (progress.settings.theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    void saveProgress(progress);
+  }, [progress]);
 
-  // Automatically process queued offline verb verifications when returning online
-  useEffect(() => {
-    if (!isOnline || !settings.geminiApiKey.trim() || processingQueueRef.current) return;
-    const pending = queueItems.filter((item) => item.status === 'pending');
-    if (pending.length === 0) return;
+  const lang = progress.settings.language;
 
-    processingQueueRef.current = true;
-    (async () => {
-      try {
-        for (const item of pending) {
-          if (!item.id) continue;
-          await db.verifyQueue.update(item.id, { status: 'processing', error: undefined });
-          try {
-            const verified = await verifyVerbWithGemini(
-              item.query,
-              settings.geminiApiKey,
-              settings.geminiModel
-            );
-            await db.verifyQueue.update(item.id, { status: 'ready', result: verified });
-          } catch (err) {
-            await db.verifyQueue.update(item.id, {
-              status: 'error',
-              error: err instanceof Error ? err.message : 'Verification failed',
-            });
-          }
-        }
-      } finally {
-        processingQueueRef.current = false;
-      }
-    })();
-  }, [isOnline, settings.geminiApiKey, settings.geminiModel, queueItems]);
-
-  const handleOpenTasreef = (verb: VerbEntry) => {
-    setSelectedVerb(verb);
-    setActiveTab('tasreef');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const updateProgress = (updater: (prev: UserProgress) => UserProgress) => {
+    setProgress((prev) => updater(prev));
   };
 
-  const handleSpeakError = (msg: string) => {
-    const arVoices = getArabicVoices();
-    if (arVoices.length === 0) {
-      setSpeechNotice(
-        'No Arabic (ar-SA) voice is installed on this device. Open Settings for quick instructions to download an offline Arabic voice.'
-      );
-    } else {
-      setSpeechNotice(msg);
+  const handleNavigate = (section: NavSection, refId?: string) => {
+    setActiveNav(section);
+    setMobileMenuOpen(false);
+    if (refId) {
+      if (section === 'sarf_textbook') setSelectedSarfChapter(refId);
+      else if (section === 'nahu_textbook') setSelectedNahuChapter(refId);
+      else if (section === 'tasreef') setTasreefVerbId(refId);
     }
   };
 
-  if (dbState === 'loading') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
-        <div className="text-center space-y-3 max-w-sm">
-          <Loader2 className="w-8 h-8 animate-spin text-emerald-700 dark:text-emerald-400 mx-auto" />
-          <h1 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100">
-            Preparing Sarf Companion
-          </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Loading the offline Arabic verb dictionary and morphological engine into IndexedDB...
-          </p>
-        </div>
-      </div>
-    );
-  }
+  const handleToggleChapterComplete = (chapterId: string) => {
+    updateProgress((prev) => {
+      const exists = prev.completedChapters.includes(chapterId);
+      const completedChapters = exists
+        ? prev.completedChapters.filter((id) => id !== chapterId)
+        : [...prev.completedChapters, chapterId];
+      const next = updateStudyStreak({ ...prev, completedChapters });
+      return exists ? next : appendActivity(next, `Completed ${chapterId}`, 'chapter');
+    });
+  };
 
-  if (dbState === 'error') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
-        <div className="max-w-md w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-4 text-center">
-          <AlertCircle className="w-8 h-8 text-amber-600 mx-auto" />
-          <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-            Offline Database Error
-          </h1>
-          <p className="text-sm text-slate-600 dark:text-slate-300">{dbError}</p>
-          <button
-            type="button"
-            onClick={initDb}
-            className="min-h-[44px] px-5 rounded-xl bg-emerald-700 text-white text-sm font-medium inline-flex items-center gap-2 hover:bg-emerald-800"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>Retry Initialization</span>
-          </button>
-        </div>
-      </div>
+  const handleToggleBookmarkChapter = (ch: TextbookChapter) => {
+    updateProgress((prev) =>
+      toggleBookmarkItem(prev, {
+        id: `bm-ch-${ch.id}`,
+        type: 'chapter',
+        refId: ch.id,
+        titleAr: ch.titleAr,
+        subtitle: `${ch.discipline.toUpperCase()} Ch. ${ch.number} · ${ch.titleEn}`,
+      })
     );
-  }
+  };
+
+  const handleChapterQuizComplete = (
+    chapterId: string,
+    score: number,
+    total: number,
+    outcomes: { q: QuizQuestion; ok: boolean }[]
+  ) => {
+    updateProgress((prev) => {
+      let next = prev;
+      for (const item of outcomes) {
+        next = recordQuestionOutcome(next, item.q, item.ok);
+      }
+      const prevScore = next.quizScores[chapterId];
+      const best = Math.max(prevScore?.best ?? 0, score);
+      const attempts = (prevScore?.attempts ?? 0) + 1;
+      next = {
+        ...next,
+        quizScores: {
+          ...next.quizScores,
+          [chapterId]: { best, total, attempts },
+        },
+      };
+      return appendActivity(next, `Quiz ${chapterId}: ${score}/${total}`, 'quiz');
+    });
+  };
+
+  const handleToggleFavoriteVerb = (verbId: string) => {
+    updateProgress((prev) => {
+      const exists = prev.favoriteVerbIds.includes(verbId);
+      const favoriteVerbIds = exists
+        ? prev.favoriteVerbIds.filter((id) => id !== verbId)
+        : [...prev.favoriteVerbIds, verbId];
+      return { ...prev, favoriteVerbIds };
+    });
+  };
+
+  const handleToggleBookmarkSentence = (sentence: string, translation: string) => {
+    updateProgress((prev) =>
+      toggleBookmarkItem(prev, {
+        id: `bm-sent-${sentence}`,
+        type: 'sentence',
+        refId: sentence,
+        titleAr: sentence,
+        subtitle: translation,
+      })
+    );
+  };
+
+  const handleToggleBookmarkTerm = (term: NahuTermEntry) => {
+    updateProgress((prev) =>
+      toggleBookmarkItem(prev, {
+        id: `bm-term-${term.id}`,
+        type: 'nahu_term',
+        refId: term.id,
+        titleAr: term.termAr,
+        subtitle: `${term.meaningEn} · ${term.transliteration}`,
+      })
+    );
+  };
+
+  const handleToggleBookmarkVocab = (w: VocabEntry) => {
+    updateProgress((prev) =>
+      toggleBookmarkItem(prev, {
+        id: `bm-voc-${w.id}`,
+        type: 'vocab',
+        refId: w.id,
+        titleAr: w.arabic,
+        subtitle: `${w.meaningEn} · ${w.meaningTl}`,
+      })
+    );
+  };
+
+  const handleFinishExam = (
+    attempt: ExamAttempt,
+    outcomes: { q: QuizQuestion; ok: boolean }[]
+  ) => {
+    updateProgress((prev) => {
+      let next = prev;
+      for (const item of outcomes) {
+        next = recordQuestionOutcome(next, item.q, item.ok);
+      }
+      return recordExamResult(next, attempt);
+    });
+  };
+
+  const handleRateSRS = (cardId: string, quality: 1 | 2 | 3 | 4) => {
+    updateProgress((prev) => {
+      const card = prev.srsCards[cardId];
+      if (!card) return prev;
+      const updated = scheduleSRSCard(card, quality);
+      return updateStudyStreak({
+        ...prev,
+        srsCards: { ...prev.srsCards, [cardId]: updated },
+      });
+    });
+  };
+
+  const handleUpdateSettings = (patch: Partial<AppSettings>) => {
+    updateProgress((prev) => ({
+      ...prev,
+      settings: { ...prev.settings, ...patch },
+    }));
+  };
+
+  const handleImportProgress = (jsonText: string): boolean => {
+    try {
+      const migrated = importProgressJSON(jsonText);
+      setProgress(migrated);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleResetProgress = () => {
+    setProgress(getDefaultProgress());
+  };
+
+  const dueCount = Object.values(progress.srsCards).filter(
+    (c) => c.nextReviewAt <= Date.now()
+  ).length;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col">
-      {/* Top Bar */}
-      <header className="sticky top-0 z-30 h-14 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md no-print">
-        <div className="h-full px-4 sm:px-6 flex items-center justify-between gap-3">
+    <div className="min-h-screen flex flex-col bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
+      <OfflineIndicator lang={lang} />
+
+      {/* Minimalist Top Bar (Clean 3-Zone Header) */}
+      <header className="no-print sticky top-0 z-30 h-14 border-b border-stone-200 bg-white/95 backdrop-blur px-4 flex items-center justify-between gap-3 dark:border-stone-800 dark:bg-stone-950/95">
+        <div className="flex items-center gap-3 min-w-0">
           <button
             type="button"
-            onClick={() => setActiveTab('dictionary')}
-            className="flex items-center gap-2.5 min-w-0 text-left"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className="lg:hidden p-1.5 rounded-lg border border-stone-200 text-stone-700 dark:border-stone-800 dark:text-stone-300"
+            aria-label="Toggle navigation menu"
           >
-            <img
-              src="./icon.svg"
-              alt=""
-              className="w-7 h-7 rounded-lg shrink-0"
-            />
-            <span className="font-display font-bold text-base sm:text-lg tracking-tight text-slate-900 dark:text-slate-100 truncate">
-              Sarf Companion
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleNavigate('dashboard')}
+            className="flex items-center gap-2.5 text-left min-w-0"
+          >
+            <span className="font-arabic text-xl font-bold text-emerald-800 dark:text-emerald-400 shrink-0">
+              صرف
+            </span>
+            <span className="font-bold text-sm sm:text-base truncate text-stone-900 dark:text-stone-50">
+              {t('appName', lang)}
             </span>
           </button>
+        </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <StatusIndicators
-              isOnline={isOnline}
-              offlineReady={pwa.offlineReady}
-              needRefresh={pwa.needRefresh}
-              onRefresh={pwa.applyUpdate}
-            />
+        <div className="hidden md:flex items-center">
+          <ConnectivityCaption lang={lang} />
+        </div>
 
-            <PWAInstallButton
-              isInstallable={pwa.isInstallable}
-              isInstalled={pwa.isInstalled}
-              isIOS={pwa.isIOS}
-              onInstall={pwa.install}
-              compact
-            />
+        <div className="flex items-center gap-2 shrink-0">
+          <PWAInstallButton lang={lang} />
 
-            <button
-              type="button"
-              onClick={() =>
-                updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })
-              }
-              aria-label={settings.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:border-emerald-600"
-            >
-              {settings.theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
+          {/* Language Switcher */}
+          <div className="inline-flex rounded-lg border border-stone-200 dark:border-stone-800 overflow-hidden text-xs">
+            {(['ar', 'en', 'tl'] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => handleUpdateSettings({ language: l })}
+                className={`px-2 py-1 font-semibold uppercase transition-colors ${
+                  lang === l
+                    ? 'bg-emerald-800 text-white dark:bg-emerald-600'
+                    : 'bg-white text-stone-600 hover:bg-stone-100 dark:bg-stone-900 dark:text-stone-300'
+                }`}
+              >
+                {l}
+              </button>
+            ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() =>
+              handleUpdateSettings({
+                theme: progress.settings.theme === 'dark' ? 'light' : 'dark',
+              })
+            }
+            className="p-2 rounded-lg border border-stone-200 text-stone-700 hover:bg-stone-100 dark:border-stone-800 dark:text-stone-300 dark:hover:bg-stone-800"
+            aria-label="Toggle Light/Dark Theme"
+          >
+            {progress.settings.theme === 'dark' ? (
+              <Sun className="w-4 h-4" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
+          </button>
         </div>
       </header>
 
-      {/* Main Responsive Shell */}
       <div className="flex-1 flex">
-        {/* Desktop Sidebar Navigation */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-60 lg:shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 justify-between no-print">
-          <nav className="space-y-1.5" aria-label="Main navigation">
+        {/* Desktop Sidebar */}
+        <aside className="no-print hidden lg:flex lg:flex-col w-60 shrink-0 border-r border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950 p-3">
+          <nav className="space-y-1 flex-1">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              const active = activeNav === item.id;
               return (
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setActiveTab(item.id)}
-                  className={`w-full min-h-[44px] px-3.5 rounded-xl text-sm flex items-center gap-3 transition-colors ${
-                    isActive
-                      ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 font-semibold'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-100'
+                  onClick={() => handleNavigate(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${
+                    active
+                      ? 'bg-emerald-800 text-white dark:bg-emerald-600'
+                      : 'text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-900'
                   }`}
                 >
-                  <Icon className="w-4 h-4 shrink-0" />
-                  <span>{item.label}</span>
+                  <span className="flex items-center gap-2.5 truncate">
+                    <Icon className="w-4 h-4 shrink-0" />
+                    <span className="truncate">{t(item.id, lang)}</span>
+                  </span>
+                  {item.id === 'review' && dueCount > 0 && (
+                    <span className={`tabular-nums text-[11px] ${active ? 'text-emerald-100' : 'text-emerald-700 dark:text-emerald-400'}`}>
+                      {dueCount}
+                    </span>
+                  )}
                 </button>
               );
             })}
           </nav>
-
-          <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-            <button
-              type="button"
-              onClick={() => setVerifyOpen(true)}
-              className="w-full min-h-[44px] px-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium inline-flex items-center justify-center gap-2 transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Verify / Add Verb</span>
-            </button>
-            <p className="text-[11px] text-center font-mono-num text-slate-500 dark:text-slate-400">
-              {verbCount} verbs stored offline
-            </p>
-          </div>
         </aside>
 
-        {/* Workspace Content */}
-        <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-5 pb-24 lg:pb-10">
-          <div className="max-w-6xl mx-auto space-y-5">
-            {/* Queued Online Verifications Ready Banner */}
-            {readyQueueCount > 0 && (
-              <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50 dark:bg-emerald-950/40 p-3.5 flex flex-wrap items-center justify-between gap-3 no-print">
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
-                  <span>
-                    {readyQueueCount} queued verb{readyQueueCount === 1 ? '' : 's'} verified online and ready for review.
-                  </span>
-                </div>
+        {/* Mobile Drawer Navigation */}
+        {mobileMenuOpen && (
+          <div className="no-print fixed inset-0 z-40 lg:hidden flex">
+            <div
+              className="fixed inset-0 bg-stone-950/50"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <aside className="relative z-10 w-64 max-w-full bg-white dark:bg-stone-950 border-r border-stone-200 dark:border-stone-800 p-4 overflow-y-auto">
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-bold text-sm">Navigation</span>
                 <button
                   type="button"
-                  onClick={() => setVerifyOpen(true)}
-                  className="min-h-[36px] px-3 rounded-xl bg-emerald-700 text-white text-xs font-medium hover:bg-emerald-800"
-                >
-                  Review &amp; Save
-                </button>
-              </div>
-            )}
-
-            {/* Speech / Voice Guidance Banner */}
-            {speechNotice && (
-              <div className="rounded-2xl border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/40 p-3.5 flex items-start justify-between gap-3 no-print">
-                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-amber-900 dark:text-amber-200">
-                  <VolumeX className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
-                  <div className="space-y-1">
-                    <p>{speechNotice}</p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSpeechNotice(null);
-                        setActiveTab('settings');
-                      }}
-                      className="text-xs font-semibold underline underline-offset-2 text-amber-800 dark:text-amber-300"
-                    >
-                      View Arabic Voice Setup Instructions
-                    </button>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setSpeechNotice(null)}
-                  aria-label="Dismiss voice notice"
-                  className="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/50"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 rounded hover:bg-stone-100 dark:hover:bg-stone-800"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
-            )}
-
-            {activeTab === 'dictionary' && (
-              <DictionaryView
-                settings={settings}
-                onSelectTasreef={handleOpenTasreef}
-                onOpenVerify={() => setVerifyOpen(true)}
-                onSpeakError={handleSpeakError}
-              />
-            )}
-
-            {activeTab === 'tasreef' && (
-              <TasreefView
-                verb={selectedVerb}
-                settings={settings}
-                onBackToDictionary={() => setActiveTab('dictionary')}
-                onSelectVerb={(v) => setSelectedVerb(v)}
-                onSpeakError={handleSpeakError}
-              />
-            )}
-
-            {activeTab === 'book' && (
-              <BookView
-                settings={settings}
-                onSpeakError={handleSpeakError}
-              />
-            )}
-
-            {activeTab === 'practice' && (
-              <PracticeView
-                settings={settings}
-                onOpenTasreef={handleOpenTasreef}
-                onSpeakError={handleSpeakError}
-              />
-            )}
-
-            {activeTab === 'settings' && (
-              <SettingsView
-                settings={settings}
-                onUpdateSettings={updateSettings}
-                isOnline={isOnline}
-                offlineReady={pwa.offlineReady}
-                isInstallable={pwa.isInstallable}
-                isInstalled={pwa.isInstalled}
-                isIOS={pwa.isIOS}
-                onInstall={pwa.install}
-                verbCount={verbCount}
-              />
-            )}
+              <nav className="space-y-1">
+                {NAV_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const active = activeNav === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleNavigate(item.id)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold ${
+                        active
+                          ? 'bg-emerald-800 text-white dark:bg-emerald-600'
+                          : 'text-stone-700 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-900'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Icon className="w-4 h-4" />
+                        <span>{t(item.id, lang)}</span>
+                      </span>
+                      {item.id === 'review' && dueCount > 0 && (
+                        <span className="tabular-nums text-[11px]">{dueCount}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
+            </aside>
           </div>
+        )}
+
+        {/* Main View Area */}
+        <main className="flex-1 min-w-0 p-4 sm:p-6 max-w-7xl mx-auto w-full">
+          {activeNav === 'dashboard' && (
+            <DashboardView progress={progress} onNavigate={handleNavigate} />
+          )}
+
+          {activeNav === 'sarf_textbook' && (
+            <TextbookView
+              discipline="sarf"
+              chapters={SARF_CHAPTERS}
+              selectedChapterId={selectedSarfChapter}
+              progress={progress}
+              onSelectChapter={setSelectedSarfChapter}
+              onToggleComplete={handleToggleChapterComplete}
+              onToggleBookmark={handleToggleBookmarkChapter}
+              onQuizComplete={handleChapterQuizComplete}
+            />
+          )}
+
+          {activeNav === 'nahu_textbook' && (
+            <TextbookView
+              discipline="nahu"
+              chapters={NAHU_CHAPTERS}
+              selectedChapterId={selectedNahuChapter}
+              progress={progress}
+              onSelectChapter={setSelectedNahuChapter}
+              onToggleComplete={handleToggleChapterComplete}
+              onToggleBookmark={handleToggleBookmarkChapter}
+              onQuizComplete={handleChapterQuizComplete}
+            />
+          )}
+
+          {activeNav === 'tasreef' && (
+            <TasreefEngineView
+              initialVerbId={tasreefVerbId}
+              progress={progress}
+              onToggleFavoriteVerb={handleToggleFavoriteVerb}
+              onRecordActivity={(title, type) =>
+                updateProgress((prev) => appendActivity(prev, title, type))
+              }
+            />
+          )}
+
+          {activeNav === 'irab' && (
+            <IrabAnalyzerView
+              progress={progress}
+              onToggleBookmarkSentence={handleToggleBookmarkSentence}
+              onRecordActivity={(title, type) =>
+                updateProgress((prev) => appendActivity(prev, title, type))
+              }
+            />
+          )}
+
+          {activeNav === 'sarf_dict' && (
+            <SarfDictionaryView
+              progress={progress}
+              onOpenInTasreef={(verbId) => handleNavigate('tasreef', verbId)}
+              onToggleFavoriteVerb={handleToggleFavoriteVerb}
+            />
+          )}
+
+          {activeNav === 'nahu_dict' && (
+            <NahuDictionaryView
+              progress={progress}
+              onToggleBookmarkTerm={handleToggleBookmarkTerm}
+            />
+          )}
+
+          {activeNav === 'vocab_dict' && (
+            <VocabDictionaryView
+              progress={progress}
+              onToggleBookmarkVocab={handleToggleBookmarkVocab}
+            />
+          )}
+
+          {activeNav === 'practice' && (
+            <PracticeCenterView
+              progress={progress}
+              onRecordOutcome={(q, ok) =>
+                updateProgress((prev) => recordQuestionOutcome(prev, q, ok))
+              }
+            />
+          )}
+
+          {activeNav === 'exams' && (
+            <ExaminationsView
+              progress={progress}
+              onFinishExam={handleFinishExam}
+            />
+          )}
+
+          {activeNav === 'review' && (
+            <ReviewSRSView progress={progress} onRateCard={handleRateSRS} />
+          )}
+
+          {activeNav === 'bookmarks' && (
+            <BookmarksView
+              progress={progress}
+              onRemoveBookmark={(id) =>
+                updateProgress((prev) => ({
+                  ...prev,
+                  bookmarks: prev.bookmarks.filter((b) => b.id !== id),
+                }))
+              }
+              onNavigate={handleNavigate}
+            />
+          )}
+
+          {activeNav === 'progress' && <ProgressView progress={progress} />}
+
+          {activeNav === 'settings' && (
+            <SettingsView
+              progress={progress}
+              onUpdateSettings={handleUpdateSettings}
+              onImportProgress={handleImportProgress}
+              onResetProgress={handleResetProgress}
+            />
+          )}
         </main>
       </div>
-
-      {/* Mobile Bottom Tab Bar */}
-      <nav
-        aria-label="Mobile navigation"
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 h-16 pb-safe border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md no-print"
-      >
-        <div className="grid grid-cols-5 h-full">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setActiveTab(item.id)}
-                className={`flex flex-col items-center justify-center gap-0.5 min-h-[44px] transition-colors ${
-                  isActive
-                    ? 'text-emerald-700 dark:text-emerald-400 font-semibold'
-                    : 'text-slate-500 dark:text-slate-400'
-                }`}
-              >
-                <Icon className="w-5 h-5" />
-                <span className="text-[11px] leading-tight">{item.shortLabel}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Online Verification & Manual Verb Modal */}
-      <VerifyVerbModal
-        isOpen={verifyOpen}
-        onClose={() => setVerifyOpen(false)}
-        isOnline={isOnline}
-        apiKey={settings.geminiApiKey}
-        modelName={settings.geminiModel}
-        onOpenSettings={() => setActiveTab('settings')}
-        onVerbSaved={(saved) => handleOpenTasreef(saved)}
-      />
     </div>
   );
 }

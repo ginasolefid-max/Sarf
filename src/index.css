@@ -1,90 +1,77 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-emerald-50: #eef3fa;
-  --color-emerald-100: #dbe5f3;
-  --color-emerald-200: #b9cde7;
-  --color-emerald-300: #8eaad4;
-  --color-emerald-400: #6b8fc4;
-  --color-emerald-500: #4a72ae;
-  --color-emerald-600: #365c97;
-  --color-emerald-700: #2a4a7d;
-  --color-emerald-800: #223c65;
-  --color-emerald-900: #1b3050;
-  --color-emerald-950: #111d33;
-  --color-amber-50: #fbf7ec;
-  --color-amber-100: #f5ecd0;
-  --color-amber-200: #ead9a0;
-  --color-amber-300: #dcc271;
-  --color-amber-400: #c9a74a;
-  --color-amber-500: #b08d33;
-  --color-amber-600: #8f7027;
-  --color-amber-700: #735a21;
-  --color-amber-800: #5d481e;
-  --color-amber-900: #4b3b1b;
-  --color-amber-950: #2b2110;
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-arabic: 'Amiri', 'Traditional Arabic', 'Geeza Pro', 'Arabic Typesetting', serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
 }
 
-
-@import "@fontsource/plus-jakarta-sans/400.css";
-@import "@fontsource/plus-jakarta-sans/500.css";
-@import "@fontsource/plus-jakarta-sans/600.css";
-@import "@fontsource/plus-jakarta-sans/700.css";
-@import "@fontsource/fraunces/600.css";
-@import "@fontsource/fraunces/700.css";
-@import "@fontsource/jetbrains-mono/500.css";
-@import "@fontsource/amiri/400.css";
-@import "@fontsource/amiri/700.css";
-@import "@fontsource/noto-naskh-arabic/400.css";
-@import "@fontsource/noto-naskh-arabic/600.css";
-@import "@fontsource/noto-naskh-arabic/700.css";
-@import "@fontsource/scheherazade-new/400.css";
-@import "@fontsource/scheherazade-new/700.css";
-
-:root {
-  --ar-font-family: "Amiri", "Noto Naskh Arabic", serif;
-  --ar-font-size: 26px;
+.font-arabic {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  unicode-bidi: isolate;
+  line-height: 2.05;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 }
 
-body {
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  -webkit-tap-highlight-color: transparent;
+.font-arabic-inline {
+  font-family: var(--font-arabic);
+  unicode-bidi: isolate;
+  line-height: 1.9;
 }
 
-.font-display {
-  font-family: "Fraunces", Georgia, serif;
-}
-
-.font-mono-num {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+.font-mono-tabular {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-.arabic-text {
-  font-family: var(--ar-font-family);
-  line-height: 2.05;
-  direction: rtl;
-  unicode-bidi: isolate;
-  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
-.arabic-scalable {
-  font-family: var(--ar-font-family);
-  font-size: var(--ar-font-size);
-  line-height: 2.05;
-  direction: rtl;
-  unicode-bidi: isolate;
-  font-feature-settings: "liga" 1, "calt" 1, "mark" 1, "mkmk" 1;
+/* Smooth focus accessibility */
+:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
 }
 
-/* Safe area padding for mobile PWA standalone mode */
-.pb-safe {
-  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-}
-
+/* Print / PDF Export styles for Tasreef & I'rab */
 @media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
   .no-print {
     display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  th, td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 6px 8px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
