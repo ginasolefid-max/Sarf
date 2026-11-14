@@ -11,6 +11,7 @@ export interface BookTable {
 
 export interface BookSection {
   heading: string;
+  arabicBody?: string;
   body: string;
   examples?: BookExample[];
   table?: BookTable;

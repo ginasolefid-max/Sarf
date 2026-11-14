@@ -12,6 +12,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'What Is Nahw?',
+        arabicBody: 'النَّحْوُ عِلْمٌ بِأُصُولٍ يُعْرَفُ بِهَا أَحْوَالُ أَوَاخِرِ الْكَلِمَاتِ الْعَرَبِيَّةِ مِنْ إِعْرَابٍ وَبِنَاءٍ، وَغَايَتُهُ صِيَانَةُ اللِّسَانِ مِنَ اللَّحْنِ وَفَهْمُ الْكَلَامِ فَهْمًا صَحِيحًا.',
         body: 'Ilm al-Nahw (عِلْمُ النَّحْوِ) is the science of Arabic syntax. It studies how words combine into sentences, and how the ending of each word changes according to its job in the sentence (this change is called I\u02BFrab). Its aim is to protect speech and writing from error (اللَّحْنُ) and to let you identify the role of every word: doer, object, predicate, modifier and so on.',
         examples: [
           { ar: 'ضَرَبَ زَيْدٌ عَمْرًا', translit: 'ḍaraba zaydun ʿamran', en: 'Zayd hit Amr. The endings show who did the hitting.' },
@@ -20,10 +21,12 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Founders and Classic Books',
+        arabicBody: 'تُنْسَبُ نَشْأَةُ النَّحْوِ إِلَى أَبِي الْأَسْوَدِ الدُّؤَلِيِّ، ثُمَّ نَضَجَ عَلَى يَدِ الْخَلِيلِ بْنِ أَحْمَدَ وَتِلْمِيذِهِ سِيبَوَيْهِ صَاحِبِ «الْكِتَابِ».',
         body: 'Abu al-Aswad al-Du\u2019ali is credited with starting Nahw, after errors in reciting the Quran spread. Al-Khalil ibn Ahmad and his student Sibawayh (author of al-Kitab) built the science. Later, Ibn Ajurrum wrote al-Ajurrumiyya for beginners, and Ibn Malik wrote the Alfiyya, a thousand-line poem that covers the whole subject.',
       },
       {
         heading: 'Sarf Versus Nahw',
+        arabicBody: 'الصَّرْفُ يَبْحَثُ فِي بِنْيَةِ الْكَلِمَةِ الْمُفْرَدَةِ وَأَوْزَانِهَا، وَالنَّحْوُ يَبْحَثُ فِي أَحْوَالِ الْكَلِمَاتِ إِذَا رُكِّبَتْ فِي الْجُمَلِ.',
         body: 'Sarf studies the form of a single word: its root, pattern, tenses and plurals. Nahw studies words in a sentence: their order, their relationships and their endings. You need both: Sarf builds the word, and Nahw places it.',
         table: {
           headers: ['', 'Sarf (morphology)', 'Nahw (syntax)'],
@@ -36,6 +39,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Kalima, Kalam and Jumla',
+        arabicBody: 'الْكَلِمَةُ لَفْظٌ وُضِعَ لِمَعْنًى مُفْرَدٍ، وَالْكَلَامُ هُوَ اللَّفْظُ الْمُرَكَّبُ الْمُفِيدُ فَائِدَةً يَحْسُنُ السُّكُوتُ عَلَيْهَا.',
         body: 'A Kalima (كَلِمَةٌ) is a single meaningful word. A Kalam (كَلَامٌ) is a composed, useful utterance whose meaning is complete: اللَّفْظُ الْمُرَكَّبُ الْمُفِيدُ. A Jumla (جُمْلَةٌ) is a sentence or clause. "The student" is not Kalam, because it leaves you waiting. "The student is diligent" is Kalam.',
         examples: [
           { ar: 'الطَّالِبُ', translit: 'aṭ-ṭālibu', en: 'Kalima only: incomplete meaning.' },
@@ -78,6 +82,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Ism, Fi\u02BFl, Harf',
+        arabicBody: 'الْكَلِمَةُ ثَلَاثَةُ أَقْسَامٍ: اسْمٌ وَفِعْلٌ وَحَرْفٌ. فَالِاسْمُ مَا دَلَّ عَلَى مَعْنًى فِي نَفْسِهِ غَيْرِ مُقْتَرِنٍ بِزَمَنٍ، وَالْفِعْلُ مَا دَلَّ عَلَى مَعْنًى فِي نَفْسِهِ وَاقْتَرَنَ بِزَمَنٍ، وَالْحَرْفُ مَا دَلَّ عَلَى مَعْنًى فِي غَيْرِهِ.',
         body: 'Every Arabic word is one of three kinds. An Ism (اِسْمٌ, noun) names a person, thing, place, idea or quality. A Fi\u02BFl (فِعْلٌ, verb) names an action or state tied to a time. A Harf (حَرْفٌ, particle) has no full meaning alone and needs an Ism or Fi\u02BFl to complete it.',
         table: {
           headers: ['Kind', 'Signs that identify it', 'Example'],
@@ -90,6 +95,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Three Kinds of Verb',
+        arabicBody: 'الْفِعْلُ ثَلَاثَةُ أَقْسَامٍ: مَاضٍ وَمُضَارِعٌ وَأَمْرٌ. فَالْمَاضِي مَا دَلَّ عَلَى حَدَثٍ وَقَعَ وَانْقَضَى، وَالْمُضَارِعُ مَا دَلَّ عَلَى حَدَثٍ يَقَعُ فِي الْحَالِ أَوِ الِاسْتِقْبَالِ، وَالْأَمْرُ طَلَبُ حُصُولِ الْفِعْلِ مِنَ الْمُخَاطَبِ.',
         body: 'The Madi (مَاضٍ, past) is always Mabni. The Mudari\u02BF (مُضَارِعٌ, present or future) begins with أ ن ي ت and is usually Mu\u02BFrab. The Amr (أَمْرٌ, command) asks for an action and is Mabni. Mabni and Mu\u02BFrab are explained in the next chapter.',
         examples: [
           { ar: 'كَتَبَ', translit: 'kataba', en: 'Madi: he wrote' },
@@ -137,10 +143,12 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Mu\u02BFrab and Mabni',
+        arabicBody: 'الْمُعْرَبُ مَا تَغَيَّرَ آخِرُهُ بِاخْتِلَافِ الْعَوَامِلِ الدَّاخِلَةِ عَلَيْهِ لَفْظًا أَوْ تَقْدِيرًا، وَالْمَبْنِيُّ مَا لَزِمَ آخِرُهُ حَالَةً وَاحِدَةً.',
         body: 'A Mu\u02BFrab (مُعْرَبٌ) word changes its ending because of a governing word, called the \u02BFAmil (عَامِلٌ). The word that is affected is the Ma\u02BFmul (مَعْمُولٌ). A Mabni (مَبْنِيٌّ) word keeps one fixed ending wherever it appears. Most nouns and the present verb are Mu\u02BFrab. All particles, past verbs, commands, pronouns, demonstratives and relative pronouns are Mabni.',
       },
       {
         heading: 'The Four States',
+        arabicBody: 'أَنْوَاعُ الْإِعْرَابِ أَرْبَعَةٌ: الرَّفْعُ وَالنَّصْبُ وَالْجَرُّ وَالْجَزْمُ؛ فَلِلْأَسْمَاءِ الرَّفْعُ وَالنَّصْبُ وَالْجَرُّ وَلَا جَزْمَ فِيهَا، وَلِلْأَفْعَالِ الرَّفْعُ وَالنَّصْبُ وَالْجَزْمُ وَلَا جَرَّ فِيهَا.',
         body: 'There are four states (حَالَاتُ الْإِعْرَابِ). Nouns have three: Raf\u02BF, Nasb and Jarr. The present verb has three: Raf\u02BF, Nasb and Jazm. Jarr belongs only to nouns, and Jazm belongs only to verbs.',
         table: {
           headers: ['State', 'Original marker', 'Applies to', 'Typical jobs'],
@@ -159,6 +167,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Estimated Endings (Muqaddar)',
+        arabicBody: 'الْإِعْرَابُ التَّقْدِيرِيُّ مَا لَا تَظْهَرُ عَلَامَتُهُ عَلَى آخِرِ الْكَلِمَةِ لِتَعَذُّرٍ أَوْ ثِقَلٍ.',
         body: 'Sometimes the marker cannot be pronounced, so it is only estimated. Words ending in alif maqsura (الْفَتَى) carry all three states on the alif, estimated because it is impossible to pronounce a vowel on it. Words ending in a weak ya (الْقَاضِي) show an estimated damma and kasra, because they are heavy, while the fatha appears. In your analysis, write "the marker is estimated on the last letter".',
         examples: [
           { ar: 'جَاءَ الْفَتَى', translit: 'jāʾa al-fatā', en: 'Raf\u02BF, estimated on alif' },
@@ -209,6 +218,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Overview',
+        arabicBody: 'لِلْإِعْرَابِ عَلَامَاتٌ أَصْلِيَّةٌ هِيَ الضَّمَّةُ وَالْفَتْحَةُ وَالْكَسْرَةُ وَالسُّكُونُ، وَعَلَامَاتٌ فَرْعِيَّةٌ تَنُوبُ عَنْهَا هِيَ الْوَاوُ وَالْأَلِفُ وَالْيَاءُ وَالنُّونُ وَحَذْفُ حَرْفِ الْعِلَّةِ وَحَذْفُ النُّونِ.',
         body: 'Some words show their state with letters instead of the original damma, fatha and kasra. These are the substitute markers (الْعَلَامَاتُ الْفَرْعِيَّةُ). Learn them as a set.',
         table: {
           headers: ['Word type', 'Raf\u02BF', 'Nasb', 'Jarr'],
@@ -224,6 +234,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'The Five Nouns',
+        arabicBody: 'الْأَسْمَاءُ الْخَمْسَةُ تُرْفَعُ بِالْوَاوِ وَتُنْصَبُ بِالْأَلِفِ وَتُجَرُّ بِالْيَاءِ، بِشَرْطِ أَنْ تُضَافَ إِلَى غَيْرِ يَاءِ الْمُتَكَلِّمِ.',
         body: 'The five nouns are أَبٌ (father), أَخٌ (brother), حَمٌ (father-in-law), فُو (mouth) and ذُو (owner of). They use waw, alif and ya only when they are annexed (Mudaf) to a noun or pronoun other than the ya of the speaker.',
         examples: [
           { ar: 'جَاءَ أَبُو مُحَمَّدٍ', translit: 'jāʾa abū muḥammadin', en: 'Raf\u02BF with waw: Muhammad\u2019s father came' },
@@ -233,10 +244,12 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Dual and Sound Plurals',
+        arabicBody: 'الْمُثَنَّى مَا دَلَّ عَلَى اثْنَيْنِ بِزِيَادَةِ أَلِفٍ وَنُونٍ أَوْ يَاءٍ وَنُونٍ، وَجَمْعُ الْمُذَكَّرِ السَّالِمُ مَا دَلَّ عَلَى أَكْثَرَ مِنِ اثْنَيْنِ بِزِيَادَةِ وَاوٍ وَنُونٍ أَوْ يَاءٍ وَنُونٍ، وَجَمْعُ الْمُؤَنَّثِ السَّالِمُ مَا زِيدَ فِي آخِرِهِ أَلِفٌ وَتَاءٌ.',
         body: 'The dual ends with ـانِ in Raf\u02BF and ـيْنِ in Nasb and Jarr. The sound masculine plural ends with ـونَ in Raf\u02BF and ـينَ in Nasb and Jarr, with a fatha on the nun. The sound feminine plural keeps the damma in Raf\u02BF, and takes the kasra in both Nasb and Jarr instead of the fatha. When these words become Mudaf, they lose the final nun: كِتَابَا الطَّالِبِ and مُسْلِمُو مِصْرَ.',
       },
       {
         heading: 'Diptotes',
+        arabicBody: 'الْمَمْنُوعُ مِنَ الصَّرْفِ اسْمٌ لَا يَقْبَلُ التَّنْوِينَ، وَيُجَرُّ بِالْفَتْحَةِ نِيَابَةً عَنِ الْكَسْرَةِ مَا لَمْ يُضَفْ أَوْ تَدْخُلْ عَلَيْهِ «أَلْ».',
         body: 'A diptote takes no tanwin, and takes a fatha in Jarr instead of the kasra. It returns to the kasra when it carries ال or is the first word of an idafa. Chapter 17 earlier in this book lists the categories.',
         examples: [
           { ar: 'صَلَّيْتُ فِي مَسَاجِدَ كَثِيرَةٍ', translit: 'ṣallaytu fī masājida kathīratin', en: 'I prayed in many mosques (fatha, no tanwin)' },
@@ -245,6 +258,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'The Five Verbs and Weak Verbs',
+        arabicBody: 'الْأَفْعَالُ الْخَمْسَةُ كُلُّ فِعْلٍ مُضَارِعٍ اتَّصَلَتْ بِهِ أَلِفُ الِاثْنَيْنِ أَوْ وَاوُ الْجَمَاعَةِ أَوْ يَاءُ الْمُخَاطَبَةِ؛ تُرْفَعُ بِثُبُوتِ النُّونِ وَتُنْصَبُ وَتُجْزَمُ بِحَذْفِهَا.',
         body: 'The five verbs are the present forms that end with the dual alif, the plural waw or the feminine ya: يَفْعَلَانِ، تَفْعَلَانِ، يَفْعَلُونَ، تَفْعَلُونَ، تَفْعَلِينَ. They are Marfu\u02BF with the nun, and Mansub or Majzum by removing it. A weak-ending present verb is Majzum by removing its last letter.',
         examples: [
           { ar: 'الطُّلَّابُ يَكْتُبُونَ', translit: 'aṭ-ṭullābu yaktubūna', en: 'Raf\u02BF: nun stays' },
@@ -295,6 +309,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Mubtada\u2019 and Khabar',
+        arabicBody: 'الْمُبْتَدَأُ اسْمٌ مَرْفُوعٌ يُبْتَدَأُ بِهِ الْكَلَامُ وَيُخْبَرُ عَنْهُ، وَالْخَبَرُ هُوَ الْجُزْءُ الَّذِي تَتِمُّ بِهِ الْفَائِدَةُ مَعَ الْمُبْتَدَأِ، وَهُمَا مَرْفُوعَانِ.',
         body: 'A nominal sentence begins with a noun. Its two pillars are the Mubtada\u2019 (مُبْتَدَأٌ, the topic) and the Khabar (خَبَرٌ, the information about it). Both are Marfu\u02BF. The Mubtada\u2019 is normally definite, and the Khabar is normally indefinite. Arabic needs no word for "is" in the present tense.',
         examples: [
           { ar: 'الْعِلْمُ نُورٌ', translit: 'al-ʿilmu nūrun', en: 'Knowledge is light.' },
@@ -303,6 +318,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Types of Khabar',
+        arabicBody: 'الْخَبَرُ ثَلَاثَةُ أَنْوَاعٍ: مُفْرَدٌ، وَجُمْلَةٌ فِعْلِيَّةٌ أَوِ اسْمِيَّةٌ، وَشِبْهُ جُمْلَةٍ (جَارٌّ وَمَجْرُورٌ أَوْ ظَرْفٌ).',
         body: 'The Khabar has three types. A Mufrad (مُفْرَدٌ) is a single word, such as مُجْتَهِدٌ. A Jumla (جُمْلَةٌ) is a full sentence, either verbal or nominal. A Shibh Jumla (شِبْهُ جُمْلَةٍ) is a prepositional phrase or an adverb. When the Khabar is a sentence, it needs a pronoun that points back to the Mubtada\u2019.',
         table: {
           headers: ['Type', 'Example', 'Meaning'],
@@ -316,10 +332,12 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Agreement',
+        arabicBody: 'يُطَابِقُ الْخَبَرُ الْمُبْتَدَأَ فِي التَّذْكِيرِ وَالتَّأْنِيثِ وَفِي الْإِفْرَادِ وَالتَّثْنِيَةِ وَالْجَمْعِ.',
         body: 'The Khabar agrees with the Mubtada\u2019 in gender and number: الطَّالِبَانِ مُجْتَهِدَانِ and الطَّالِبَاتُ مُجْتَهِدَاتٌ. A plural of a non-human noun takes a feminine singular Khabar: الْكُتُبُ مُفِيدَةٌ.',
       },
       {
         heading: 'Indefinite Mubtada\u2019 and Word Order',
+        arabicBody: 'الْأَصْلُ فِي الْمُبْتَدَأِ أَنْ يَكُونَ مَعْرِفَةً، وَلَا يُبْتَدَأُ بِالنَّكِرَةِ إِلَّا إِذَا حَصَلَتْ بِهَا فَائِدَةٌ.',
         body: 'The Mubtada\u2019 may be indefinite when the sentence gives useful information, for example when the Khabar is a Shibh Jumla that comes first, or when the noun is described. The Khabar must come first in this case: فِي الدَّارِ رَجُلٌ (In the house is a man). It also comes first when it is an interrogative word: مَنْ أَنْتَ؟',
         examples: [
           { ar: 'فِي الدَّارِ رَجُلٌ', translit: 'fī ad-dāri rajulun', en: 'There is a man in the house.' },
@@ -362,6 +380,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Structure',
+        arabicBody: 'الْجُمْلَةُ الْفِعْلِيَّةُ هِيَ الَّتِي تَبْدَأُ بِفِعْلٍ، وَرُكْنَاهَا الْفِعْلُ وَالْفَاعِلُ، وَالْفَاعِلُ اسْمٌ مَرْفُوعٌ يَدُلُّ عَلَى مَنْ فَعَلَ الْفِعْلَ.',
         body: 'A verbal sentence begins with a verb and normally follows the order Fi\u02BFl, then Fa\u02BFil, then Maf\u02BFul. The Fa\u02BFil (فَاعِلٌ) is the doer and is always Marfu\u02BF. The Maf\u02BFul Bihi (مَفْعُولٌ بِهِ) is the receiver and is always Mansub.',
         examples: [
           { ar: 'كَتَبَ الطَّالِبُ الدَّرْسَ', translit: 'kataba aṭ-ṭālibu ad-darsa', en: 'The student wrote the lesson.' },
@@ -369,14 +388,17 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Forms of the Fa\u02BFil',
+        arabicBody: 'يَأْتِي الْفَاعِلُ اسْمًا ظَاهِرًا أَوْ ضَمِيرًا مُتَّصِلًا أَوْ ضَمِيرًا مُسْتَتِرًا.',
         body: 'The Fa\u02BFil can be an explicit noun (الطَّالِبُ), an attached pronoun (كَتَبْتُ, the doer is the ta) or a hidden pronoun (يَكْتُبُ, the doer is "he" implied). The verb stays singular even when the Fa\u02BFil is dual or plural: جَاءَ الرِّجَالُ and جَاءَ الرَّجُلَانِ.',
       },
       {
         heading: 'Gender Agreement',
+        arabicBody: 'يُؤَنَّثُ الْفِعْلُ إِذَا كَانَ الْفَاعِلُ مُؤَنَّثًا حَقِيقِيًّا مُتَّصِلًا بِالْفِعْلِ، وَيَجُوزُ التَّذْكِيرُ وَالتَّأْنِيثُ فِي غَيْرِ ذَلِكَ.',
         body: 'The verb takes the feminine ta when the Fa\u02BFil is a real feminine noun that follows directly: جَاءَتْ فَاطِمَةُ. The feminine marker is optional when the Fa\u02BFil is separated from the verb or is a broken plural or a non-human plural: قَالَ الْأَعْرَابُ and قَالَتِ الْأَعْرَابُ are both found.',
       },
       {
         heading: 'Transitive Verbs',
+        arabicBody: 'الْفِعْلُ الْمُتَعَدِّي مَا يَحْتَاجُ إِلَى مَفْعُولٍ بِهِ، وَاللَّازِمُ مَا يَكْتَفِي بِفَاعِلِهِ.',
         body: 'A verb may need no object (جَلَسَ), one object (كَتَبَ), or two objects (أَعْطَى). With two objects, both are Mansub.',
         examples: [
           { ar: 'جَلَسَ الْوَلَدُ', translit: 'jalasa al-waladu', en: 'No object: the boy sat.' },
@@ -385,6 +407,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Na\u2019ib al-Fa\u02BFil (the Passive)',
+        arabicBody: 'نَائِبُ الْفَاعِلِ اسْمٌ مَرْفُوعٌ يَحُلُّ مَحَلَّ الْفَاعِلِ بَعْدَ حَذْفِهِ، وَيُبْنَى الْفِعْلُ مَعَهُ لِلْمَجْهُولِ.',
         body: 'When the doer is dropped, the object comes forward and is called Na\u2019ib al-Fa\u02BFil (نَائِبُ الْفَاعِلِ). It becomes Marfu\u02BF. The past verb takes a damma on its first letter and a kasra before its last letter: كُتِبَ. The present verb takes a damma on the prefix and a fatha before the last letter: يُكْتَبُ.',
         examples: [
           { ar: 'كُتِبَ الدَّرْسُ', translit: 'kutiba ad-darsu', en: 'The lesson was written.' },
@@ -427,6 +450,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'The Rule',
+        arabicBody: 'كَانَ وَأَخَوَاتُهَا أَفْعَالٌ نَاقِصَةٌ تَدْخُلُ عَلَى الْجُمْلَةِ الِاسْمِيَّةِ فَتَرْفَعُ الْمُبْتَدَأَ وَيُسَمَّى اسْمَهَا، وَتَنْصِبُ الْخَبَرَ وَيُسَمَّى خَبَرَهَا.',
         body: 'Kana and her sisters enter a nominal sentence. The Mubtada\u2019 stays Marfu\u02BF and is now called the Ism of Kana. The Khabar becomes Mansub and is called the Khabar of Kana. These verbs are called Nawasikh (نَوَاسِخُ), meaning "cancelling" operators.',
         examples: [
           { ar: 'كَانَ الْجَوُّ جَمِيلًا', translit: 'kāna al-jawwu jamīlan', en: 'The weather was beautiful.' },
@@ -488,6 +512,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'The Rule',
+        arabicBody: 'إِنَّ وَأَخَوَاتُهَا حُرُوفٌ تَدْخُلُ عَلَى الْجُمْلَةِ الِاسْمِيَّةِ فَتَنْصِبُ الْمُبْتَدَأَ وَيُسَمَّى اسْمَهَا، وَتَرْفَعُ الْخَبَرَ وَيُسَمَّى خَبَرَهَا.',
         body: 'Inna and her sisters are particles that enter a nominal sentence. They do the opposite of Kana: the Mubtada\u2019 becomes Mansub (the Ism of Inna) and the Khabar stays Marfu\u02BF (the Khabar of Inna).',
         table: {
           headers: ['Particle', 'Meaning', 'Example'],
@@ -549,6 +574,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
     sections: [
       {
         heading: 'Zanna and Her Sisters',
+        arabicBody: 'ظَنَّ وَأَخَوَاتُهَا أَفْعَالٌ تَدْخُلُ عَلَى الْمُبْتَدَأِ وَالْخَبَرِ فَتَنْصِبُهُمَا مَفْعُولَيْنِ لَهَا.',
         body: 'These verbs enter a nominal sentence and put both parts in Nasb. They become two objects of the verb, and the doer is Marfu\u02BF. Verbs of certainty and opinion: ظَنَّ، حَسِبَ، خَالَ، زَعَمَ، عَلِمَ، وَجَدَ، رَأَى. Verbs of transformation: جَعَلَ، صَيَّرَ، اِتَّخَذَ.',
         examples: [
           { ar: 'ظَنَنْتُ الْأَمْرَ سَهْلًا', translit: 'ẓanantu al-amra sahlan', en: 'I thought the matter easy.' },
@@ -557,6 +583,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'Kada and Her Sisters',
+        arabicBody: 'كَادَ وَأَخَوَاتُهَا أَفْعَالٌ تَرْفَعُ الْمُبْتَدَأَ اسْمًا لَهَا وَتَنْصِبُ الْخَبَرَ، وَيَكُونُ خَبَرُهَا جُمْلَةً فِعْلِيَّةً فِعْلُهَا مُضَارِعٌ.',
         body: 'These verbs enter a nominal sentence. The Mubtada\u2019 becomes the Ism, which is Marfu\u02BF, and the Khabar must be a present verb in Nasb in position. There are three groups: verbs of near occurrence (كَادَ، أَوْشَكَ، كَرَبَ), a verb of hope (عَسَى), and verbs of beginning (شَرَعَ، طَفِقَ، جَعَلَ).',
         examples: [
           { ar: 'كَادَ الْمَطَرُ يَنْزِلُ', translit: 'kāda al-maṭaru yanzilu', en: 'The rain almost fell.' },
@@ -565,6 +592,7 @@ export const BOOK_CHAPTERS_PART_5: BookChapter[] = [
       },
       {
         heading: 'La al-Nafiya lil-Jins',
+        arabicBody: 'لَا النَّافِيَةُ لِلْجِنْسِ حَرْفٌ يَنْفِي الْحُكْمَ عَنِ الْجِنْسِ كُلِّهِ، وَتَعْمَلُ عَمَلَ إِنَّ.',
         body: 'This La negates a whole class (لَا النَّافِيَةُ لِلْجِنْسِ). It acts like Inna. When the Ism is a single noun, it is built on the marker it would take in Nasb, usually fatha. When it is annexed, it is Mansub. The Khabar is Marfu\u02BF.',
         examples: [
           { ar: 'لَا رَيْبَ فِيهِ', translit: 'lā rayba fīhi', en: 'There is no doubt in it.' },

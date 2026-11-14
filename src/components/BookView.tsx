@@ -174,6 +174,36 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
                 <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                   {sec.heading}
                 </h2>
+                {sec.arabicBody && (
+                  <div className="rounded-xl border border-emerald-200 dark:border-emerald-900 border-s-4 border-s-emerald-700 bg-emerald-50/60 dark:bg-slate-900 px-4 py-3 flex items-start gap-3">
+                    <p
+                      lang="ar"
+                      dir="rtl"
+                      className="arabic-text flex-1 text-xl sm:text-2xl leading-[2.2] text-slate-900 dark:text-slate-100"
+                    >
+                      {sec.arabicBody}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        speakArabic(sec.arabicBody as string, {
+                          rate: settings.ttsRate,
+                          repeat: 1,
+                          onError: onSpeakError,
+                        })
+                      }
+                      aria-label="Listen to the Arabic definition"
+                      className="min-h-[38px] min-w-[38px] flex items-center justify-center rounded-lg text-slate-500 hover:text-emerald-700 hover:bg-emerald-100 dark:hover:bg-emerald-950/50"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+                {sec.arabicBody && (
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    English translation
+                  </div>
+                )}
                 <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
                   {sec.body}
                 </p>
@@ -402,7 +432,7 @@ export const BookView: React.FC<BookViewProps> = ({ settings, onSpeakError }) =>
               Arabic Sarf &amp; Nahw (الصَّرْفُ وَالنَّحْوُ)
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-              Forty-one structured chapters: Sarf from alphabet and harakat to the ten verb forms, plus a complete Nahw course from I&apos;rab to parsing practice.
+              Forty-five structured chapters: Sarf from alphabet and harakat to the ten verb forms, plus a complete Nahw course from I&apos;rab to parsing practice.
             </p>
           </div>
 

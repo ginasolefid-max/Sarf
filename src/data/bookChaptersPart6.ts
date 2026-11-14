@@ -12,6 +12,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'Overview',
+        arabicBody: 'الْمَفَاعِيلُ خَمْسَةٌ: الْمَفْعُولُ بِهِ، وَالْمَفْعُولُ الْمُطْلَقُ، وَالْمَفْعُولُ لِأَجْلِهِ، وَالْمَفْعُولُ فِيهِ، وَالْمَفْعُولُ مَعَهُ، وَكُلُّهَا مَنْصُوبَةٌ.',
         body: 'The Mafa\u02BFil are nouns that complete the action of the verb. Each one is Mansub.',
         table: {
           headers: ['Name', 'Meaning', 'Example'],
@@ -26,6 +27,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Maf\u02BFul Mutlaq',
+        arabicBody: 'الْمَفْعُولُ الْمُطْلَقُ مَصْدَرٌ مَنْصُوبٌ يُذْكَرُ بَعْدَ فِعْلٍ مِنْ لَفْظِهِ لِلتَّوْكِيدِ أَوْ لِبَيَانِ النَّوْعِ أَوْ لِبَيَانِ الْعَدَدِ.',
         body: 'The Maf\u02BFul Mutlaq is a Masdar from the same verb. It has three uses. It confirms the verb (ضَرَبْتُ ضَرْبًا), it explains the kind of action (سِرْتُ سَيْرًا سَرِيعًا), or it gives the number of times (ضَرَبْتُ ضَرْبَتَيْنِ).',
         examples: [
           { ar: 'فَرِحْتُ فَرَحًا', translit: 'fariḥtu faraḥan', en: 'Emphasis: I truly rejoiced.' },
@@ -35,6 +37,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Maf\u02BFul li-Ajlihi',
+        arabicBody: 'الْمَفْعُولُ لِأَجْلِهِ مَصْدَرٌ قَلْبِيٌّ مَنْصُوبٌ يُذْكَرُ لِبَيَانِ سَبَبِ وُقُوعِ الْفِعْلِ.',
         body: 'This is a Masdar of a feeling or reason that explains why the action happened. It is Mansub, and the doer of the action and the feeling are the same, and they happen at the same time.',
         examples: [
           { ar: 'هَرَبَ الْجُنْدِيُّ خَوْفًا', translit: 'haraba al-jundiyyu khawfan', en: 'The soldier fled out of fear.' },
@@ -42,6 +45,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Maf\u02BFul Fihi (Zarf)',
+        arabicBody: 'الْمَفْعُولُ فِيهِ، وَيُسَمَّى الظَّرْفَ، اسْمٌ مَنْصُوبٌ يُذْكَرُ لِبَيَانِ زَمَانِ الْفِعْلِ أَوْ مَكَانِهِ.',
         body: 'A Zarf of time answers "when": الْيَوْمَ، غَدًا، صَبَاحًا، لَيْلًا. A Zarf of place answers "where": فَوْقَ، تَحْتَ، أَمَامَ، خَلْفَ، عِنْدَ، بَيْنَ، حَوْلَ. Place words are often followed by a genitive noun.',
         examples: [
           { ar: 'جَلَسْتُ أَمَامَ الْمُعَلِّمِ', translit: 'jalastu amāma al-muʿallimi', en: 'I sat in front of the teacher.' },
@@ -50,6 +54,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Maf\u02BFul Ma\u02BFahu',
+        arabicBody: 'الْمَفْعُولُ مَعَهُ اسْمٌ مَنْصُوبٌ يَأْتِي بَعْدَ وَاوٍ بِمَعْنَى «مَعَ» لِبَيَانِ مَنْ صَاحَبَ الْفِعْلَ.',
         body: 'After the waw of accompaniment (وَاوُ الْمَعِيَّةِ), the noun is Mansub. It means "together with".',
         examples: [
           { ar: 'سِرْتُ وَالنِّيلَ', translit: 'sirtu wa-n-nīla', en: 'I walked along with the Nile.' },
@@ -91,6 +96,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'Hal',
+        arabicBody: 'الْحَالُ وَصْفٌ مَنْصُوبٌ نَكِرَةٌ يُبَيِّنُ هَيْئَةَ صَاحِبِهِ وَقْتَ وُقُوعِ الْفِعْلِ.',
         body: 'The Hal (حَالٌ) describes the state of the doer or the receiver while the action takes place. It is Mansub, usually indefinite and usually a derived word (such as a participle). Its owner is usually definite.',
         examples: [
           { ar: 'جَاءَ الطَّالِبُ مُسْرِعًا', translit: 'jāʾa aṭ-ṭālibu musriʿan', en: 'The student came hurrying.' },
@@ -99,6 +105,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Forms of the Hal',
+        arabicBody: 'يَأْتِي الْحَالُ مُفْرَدًا أَوْ جُمْلَةً أَوْ شِبْهَ جُمْلَةٍ.',
         body: 'The Hal can be a single word (Mufrad), a sentence (Jumla) or a Shibh Jumla. When it is a sentence, it is Mansub in position.',
         table: {
           headers: ['Type', 'Example', 'Meaning'],
@@ -111,6 +118,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Tamyiz',
+        arabicBody: 'التَّمْيِيزُ اسْمٌ نَكِرَةٌ مَنْصُوبٌ يُزِيلُ الْإِبْهَامَ عَنْ ذَاتٍ أَوْ عَنْ نِسْبَةٍ.',
         body: 'The Tamyiz (تَمْيِيزٌ) is an indefinite Mansub noun that removes ambiguity. It explains a vague word (such as a measure or number) or a whole sentence.',
         examples: [
           { ar: 'اِشْتَرَيْتُ رِطْلًا زَيْتًا', translit: 'ishtaraytu riṭlan zaytan', en: 'I bought a pound of oil.' },
@@ -166,6 +174,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'The Idafa',
+        arabicBody: 'الْإِضَافَةُ نِسْبَةٌ بَيْنَ اسْمَيْنِ عَلَى تَقْدِيرِ حَرْفِ جَرٍّ، وَالْمُضَافُ يَأْخُذُ إِعْرَابَهُ بِحَسَبِ مَوْقِعِهِ، وَالْمُضَافُ إِلَيْهِ مَجْرُورٌ دَائِمًا.',
         body: 'The Idafa (إِضَافَةٌ) joins two nouns. The first is the Mudaf (مُضَافٌ) and the second is the Mudaf Ilayh (مُضَافٌ إِلَيْهِ). The Mudaf takes the case that its role requires, loses its tanwin, loses ال and loses the final nun of the dual and the sound masculine plural. The Mudaf Ilayh is always Majrur.',
         examples: [
           { ar: 'كِتَابُ الطَّالِبِ', translit: 'kitābu aṭ-ṭālibi', en: 'the student\u2019s book' },
@@ -187,6 +196,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Huruf al-Jarr',
+        arabicBody: 'حُرُوفُ الْجَرِّ حُرُوفٌ تَجُرُّ الِاسْمَ الَّذِي بَعْدَهَا وَتُوصِلُ مَعْنَى الْفِعْلِ إِلَيْهِ.',
         body: 'The prepositions (حُرُوفُ الْجَرِّ) put the following noun in Jarr. The noun is called Majrur. Together they form a Shibh Jumla that attaches to a verb or a similar word.',
         table: {
           headers: ['Particle', 'Meaning', 'Example'],
@@ -239,10 +249,12 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'What Are the Tawabi\u02BF?',
+        arabicBody: 'التَّوَابِعُ أَرْبَعَةٌ: النَّعْتُ وَالْعَطْفُ وَالتَّوْكِيدُ وَالْبَدَلُ، وَهِيَ تَتْبَعُ مَا قَبْلَهَا فِي إِعْرَابِهِ.',
         body: 'The Tawabi\u02BF (التَّوَابِعُ) are words that follow another word, called the Matbu\u02BF, and share its state of Raf\u02BF, Nasb or Jarr. There are four: the adjective (النَّعْتُ), the conjunction (الْعَطْفُ), emphasis (التَّوْكِيدُ) and the substitute (الْبَدَلُ).',
       },
       {
         heading: 'Na\u2019t (Adjective)',
+        arabicBody: 'النَّعْتُ تَابِعٌ يُبَيِّنُ صِفَةً فِي مَتْبُوعِهِ، وَيُطَابِقُ مَنْعُوتَهُ فِي الْإِعْرَابِ وَالتَّعْرِيفِ وَالتَّنْكِيرِ وَالْجِنْسِ وَالْعَدَدِ.',
         body: 'The Na\u2019t describes the noun before it, which is called the Man\u02BFut. A true adjective (نَعْتٌ حَقِيقِيٌّ) agrees with the Man\u02BFut in four things: case, definiteness, gender and number. An adjective that describes something belonging to the noun (نَعْتٌ سَبَبِيٌّ) agrees in case and definiteness, but its gender follows the noun after it, and it stays singular. A non-human plural takes a feminine singular adjective.',
         examples: [
           { ar: 'جَاءَ الطَّالِبُ الْمُجْتَهِدُ', translit: 'jāʾa aṭ-ṭālibu al-mujtahidu', en: 'The diligent student came.' },
@@ -252,6 +264,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: '\u02BFAtf (Conjunction)',
+        arabicBody: 'الْعَطْفُ تَابِعٌ يَتَوَسَّطُ بَيْنَهُ وَبَيْنَ مَتْبُوعِهِ حَرْفٌ مِنْ حُرُوفِ الْعَطْفِ.',
         body: 'The word after a conjunction, called the Ma\u02BFtuf, takes the case of the word before it. The common particles are وَ (and), فَ (then, at once), ثُمَّ (then, after a delay), أَوْ (or), أَمْ (or, in a question), بَلْ (rather), لَكِنْ (but) and حَتَّى (even).',
         examples: [
           { ar: 'جَاءَ زَيْدٌ وَعَمْرٌو', translit: 'jāʾa zaydun wa-ʿamrun', en: 'Zayd and Amr came.' },
@@ -260,6 +273,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Tawkid (Emphasis)',
+        arabicBody: 'التَّوْكِيدُ تَابِعٌ يُقَوِّي أَمْرَ الْمَتْبُوعِ فِي النَّفْسِ وَيَرْفَعُ احْتِمَالَ السَّهْوِ أَوِ التَّجَوُّزِ.',
         body: 'Tawkid (تَوْكِيدٌ) strengthens a word. A repeated word is Tawkid Lafzi (لَفْظِيٌّ). Tawkid Ma\u02BFnawi (مَعْنَوِيٌّ) uses النَّفْسُ، الْعَيْنُ، كُلٌّ، جَمِيعٌ، كِلَا and كِلْتَا, each joined to a pronoun that matches the first word. كِلَا is masculine dual and كِلْتَا is feminine dual.',
         examples: [
           { ar: 'جَاءَ الْقَوْمُ كُلُّهُمْ', translit: 'jāʾa al-qawmu kulluhum', en: 'The people all came.' },
@@ -268,6 +282,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Badal (Substitute)',
+        arabicBody: 'الْبَدَلُ تَابِعٌ يُذْكَرُ بَعْدَ الْمُبْدَلِ مِنْهُ لِلْإِيضَاحِ أَوِ التَّحْقِيقِ، وَهُوَ الْمَقْصُودُ بِالْحُكْمِ.',
         body: 'The Badal (بَدَلٌ) replaces or clarifies the word before it, called the Mubdal Minhu, and takes its case. It has three common types: Kull min Kull (the whole for the whole), Ba\u02BFd min Kull (a part of the whole) and Ishtimal (a quality of it).',
         table: {
           headers: ['Type', 'Example', 'Meaning'],
@@ -321,6 +336,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'Munada (the Vocative)',
+        arabicBody: 'الْمُنَادَى اسْمٌ يُطْلَبُ إِقْبَالُهُ بِحَرْفٍ مِنْ حُرُوفِ النِّدَاءِ.',
         body: 'The Munada (مُنَادًى) is the noun called with a particle, usually يَا. Its ending depends on its type.',
         table: {
           headers: ['Type', 'Ending', 'Example'],
@@ -343,6 +359,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Mustathna (the Exception)',
+        arabicBody: 'الِاسْتِثْنَاءُ إِخْرَاجُ مَا بَعْدَ «إِلَّا» وَأَخَوَاتِهَا مِنْ حُكْمِ مَا قَبْلَهَا.',
         body: 'The Mustathna (مُسْتَثْنًى) is the noun excluded from a ruling by إِلَّا, غَيْرُ, سِوَى, خَلَا, عَدَا or حَاشَا. After a complete positive sentence, a noun after إِلَّا is Mansub. After a complete negative sentence, it is best as a Badal, taking the case of the first noun, though Nasb is allowed. If the first noun is not mentioned, the word after إِلَّا takes the case its role requires. After غَيْرٌ and سِوَى, the excepted noun is Majrur as a Mudaf Ilayh, and غَيْرٌ takes the case the Mustathna would take.',
         examples: [
           { ar: 'جَاءَ الطُّلَّابُ إِلَّا زَيْدًا', translit: 'jāʾa aṭ-ṭullābu illā zaydan', en: 'Positive: Mansub' },
@@ -390,6 +407,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Nasb Particles',
+        arabicBody: 'تَنْصِبُ الْفِعْلَ الْمُضَارِعَ أَرْبَعَةُ حُرُوفٍ هِيَ: أَنْ وَلَنْ وَكَيْ وَإِذَنْ.',
         body: 'These particles put the present verb in Nasb.',
         table: {
           headers: ['Particle', 'Meaning', 'Example'],
@@ -404,6 +422,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Jazm Particles',
+        arabicBody: 'تَجْزِمُ الْفِعْلَ الْمُضَارِعَ: لَمْ وَلَمَّا وَلَا النَّاهِيَةُ وَلَامُ الْأَمْرِ وَأَدَوَاتُ الشَّرْطِ.',
         body: 'These particles put the present verb in Jazm: لَمْ (did not), لَمَّا (not yet), لَا النَّاهِيَةُ (do not), and لَامُ الْأَمْرِ (let him, so that he).',
         examples: [
           { ar: 'لَمْ يَكْتُبْ', translit: 'lam yaktub', en: 'He did not write.' },
@@ -413,6 +432,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Conditional Sentences',
+        arabicBody: 'الشَّرْطُ رَبْطُ جُمْلَةٍ بِجُمْلَةٍ بِأَدَاةٍ، بِحَيْثُ يَتَوَقَّفُ حُصُولُ الثَّانِيَةِ (الْجَوَابِ) عَلَى حُصُولِ الْأُولَى (الشَّرْطِ).',
         body: 'A conditional sentence has a condition (فِعْلُ الشَّرْطِ) and a result (جَوَابُ الشَّرْطِ). Conditional particles such as إِنْ and the nouns مَنْ (whoever), مَا (whatever), مَهْمَا (whatever), مَتَى (whenever), أَيْنَمَا (wherever) put both verbs in Jazm. When the result is not a verb that can be Majzum (for example a nominal sentence, a command or a negative), it begins with فَ. The particles إِذَا and لَوْ do not cause Jazm.',
         examples: [
           { ar: 'إِنْ تَدْرُسْ تَنْجَحْ', translit: 'in tadrus tanjaḥ', en: 'If you study, you will succeed.' },
@@ -456,6 +476,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'Pronouns (Dama\u2019ir)',
+        arabicBody: 'الضَّمِيرُ اسْمٌ مَبْنِيٌّ يَدُلُّ عَلَى مُتَكَلِّمٍ أَوْ مُخَاطَبٍ أَوْ غَائِبٍ.',
         body: 'Pronouns are Mabni nouns. A separate pronoun (ضَمِيرٌ مُنْفَصِلٌ) stands alone, and an attached pronoun (ضَمِيرٌ مُتَّصِلٌ) joins a verb, noun or particle.',
         table: {
           headers: ['Person', 'Separate', 'Attached'],
@@ -478,6 +499,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Demonstratives (Asma\u2019 al-Isharah)',
+        arabicBody: 'اسْمُ الْإِشَارَةِ اسْمٌ مَبْنِيٌّ يَدُلُّ عَلَى مُعَيَّنٍ بِوَاسِطَةِ إِشَارَةٍ حِسِّيَّةٍ أَوْ مَعْنَوِيَّةٍ.',
         body: 'Demonstratives point to something. The dual forms هَذَانِ and هَذَيْنِ are the exception, because they are Mu\u02BFrab (Raf\u02BF with alif, Nasb and Jarr with ya).',
         table: {
           headers: ['', 'Near', 'Far'],
@@ -493,6 +515,7 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
       },
       {
         heading: 'Relative Pronouns (Mawsulat)',
+        arabicBody: 'الِاسْمُ الْمَوْصُولُ اسْمٌ مَبْنِيٌّ لَا يَتِمُّ مَعْنَاهُ إِلَّا بِجُمْلَةٍ بَعْدَهُ تُسَمَّى الصِّلَةَ، وَفِيهَا ضَمِيرٌ يَعُودُ عَلَيْهِ.',
         body: 'A relative pronoun is followed by a clause called the Sila (صِلَةٌ), which must contain a pronoun pointing back to it, called the \u02BFA\u2019id (عَائِدٌ). The dual forms are Mu\u02BFrab.',
         table: {
           headers: ['', 'Form'],
@@ -547,30 +570,37 @@ export const BOOK_CHAPTERS_PART_6: BookChapter[] = [
     sections: [
       {
         heading: 'How to Parse',
+        arabicBody: 'الْإِعْرَابُ بَيَانُ مَا يَسْتَحِقُّهُ اللَّفْظُ فِي الْجُمْلَةِ مِنْ حَالَةٍ إِعْرَابِيَّةٍ وَعَلَامَةٍ.',
         body: 'Parse one word at a time. For each word say: what kind of word it is, its role, its state, and the marker that shows the state. If the word is Mabni, say "Mabni on" and its ending.',
       },
       {
         heading: 'Example 1: ذَهَبَ الطَّالِبُ إِلَى الْمَدْرَسَةِ',
+        arabicBody: 'ذَهَبَ: فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى الْفَتْحِ. الطَّالِبُ: فَاعِلٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ. إِلَى: حَرْفُ جَرٍّ مَبْنِيٌّ عَلَى السُّكُونِ. الْمَدْرَسَةِ: اسْمٌ مَجْرُورٌ بِإِلَى وَعَلَامَةُ جَرِّهِ الْكَسْرَةُ الظَّاهِرَةُ، وَالْجَارُّ وَالْمَجْرُورُ مُتَعَلِّقَانِ بِـ«ذَهَبَ».',
         body: 'ذَهَبَ: past verb, Mabni on fatha. الطَّالِبُ: Fa\u02BFil, Marfu\u02BF, marker is damma. إِلَى: preposition, Mabni. الْمَدْرَسَةِ: Majrur by the preposition, marker is kasra. The phrase إِلَى الْمَدْرَسَةِ is a Shibh Jumla attached to ذَهَبَ.',
       },
       {
         heading: 'Example 2: الْعِلْمُ نُورٌ',
+        arabicBody: 'الْعِلْمُ: مُبْتَدَأٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ. نُورٌ: خَبَرٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ الظَّاهِرَةُ.',
         body: 'الْعِلْمُ: Mubtada\u2019, Marfu\u02BF, marker is damma. نُورٌ: Khabar, Marfu\u02BF, marker is the damma with tanwin.',
       },
       {
         heading: 'Example 3: كَانَ الْجَوُّ جَمِيلًا',
+        arabicBody: 'كَانَ: فِعْلٌ مَاضٍ نَاقِصٌ مَبْنِيٌّ عَلَى الْفَتْحِ. الْجَوُّ: اسْمُ كَانَ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ. جَمِيلًا: خَبَرُ كَانَ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ.',
         body: 'كَانَ: past verb, Mabni on fatha. الْجَوُّ: Ism of Kana, Marfu\u02BF, marker is damma. جَمِيلًا: Khabar of Kana, Mansub, marker is the fatha with tanwin.',
       },
       {
         heading: 'Example 4: إِنَّ الْعِلْمَ نَافِعٌ',
+        arabicBody: 'إِنَّ: حَرْفٌ مُشَبَّهٌ بِالْفِعْلِ يَنْصِبُ الِاسْمَ وَيَرْفَعُ الْخَبَرَ، مَبْنِيٌّ عَلَى الْفَتْحِ. الْعِلْمَ: اسْمُ إِنَّ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ. نَافِعٌ: خَبَرُ إِنَّ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ.',
         body: 'إِنَّ: particle that makes the noun Mansub, Mabni on fatha. الْعِلْمَ: Ism of Inna, Mansub, marker is fatha. نَافِعٌ: Khabar of Inna, Marfu\u02BF, marker is damma with tanwin.',
       },
       {
         heading: 'Example 5: جَاءَ الْمُسْلِمُونَ مُسْرِعِينَ',
+        arabicBody: 'جَاءَ: فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى الْفَتْحِ. الْمُسْلِمُونَ: فَاعِلٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الْوَاوُ لِأَنَّهُ جَمْعُ مُذَكَّرٍ سَالِمٌ. مُسْرِعِينَ: حَالٌ مَنْصُوبٌ وَعَلَامَةُ نَصْبِهِ الْيَاءُ لِأَنَّهُ جَمْعُ مُذَكَّرٍ سَالِمٌ.',
         body: 'جَاءَ: past verb, Mabni on fatha. الْمُسْلِمُونَ: Fa\u02BFil, Marfu\u02BF, marker is the waw, because it is a sound masculine plural. مُسْرِعِينَ: Hal, Mansub, marker is the ya, because it is a sound masculine plural.',
       },
       {
         heading: 'Example 6: لَنْ يَنْجَحَ الْكَسُولُ',
+        arabicBody: 'لَنْ: حَرْفُ نَصْبٍ وَاسْتِقْبَالٍ مَبْنِيٌّ عَلَى السُّكُونِ. يَنْجَحَ: فِعْلٌ مُضَارِعٌ مَنْصُوبٌ بِلَنْ وَعَلَامَةُ نَصْبِهِ الْفَتْحَةُ. الْكَسُولُ: فَاعِلٌ مَرْفُوعٌ وَعَلَامَةُ رَفْعِهِ الضَّمَّةُ.',
         body: 'لَنْ: particle of Nasb, Mabni on sukun. يَنْجَحَ: present verb, Mansub by لَنْ, marker is fatha. الْكَسُولُ: Fa\u02BFil, Marfu\u02BF, marker is damma.',
       },
       {
